@@ -5,353 +5,279 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex,nofollow" />
   <title>Drumm Carpentry — Discovery</title>
+  <link rel="stylesheet" href="https://esm.sh/@excalidraw/excalidraw@0.18.0/dist/dev/index.css" />
+  <script>window.EXCALIDRAW_ASSET_PATH = "https://esm.sh/@excalidraw/excalidraw@0.18.0/dist/prod/";</script>
+  <script type="importmap">
+  {
+    "imports": {
+      "react": "https://esm.sh/react@19.0.0",
+      "react/jsx-runtime": "https://esm.sh/react@19.0.0/jsx-runtime",
+      "react-dom": "https://esm.sh/react-dom@19.0.0"
+    }
+  }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <style>
     :root {
-      --ink: #1f1a14;
-      --muted: #5c5348;
-      --paper: #f3eadc;
-      --card: #fffdf8;
-      --line: #e0d3bf;
-      --walnut: #2a2420;
-      --oak: #8a5524;
-      --sienna: #c45c26;
-      --moss: #3d5a45;
+      --ink: #14221c;
+      --muted: #5a645e;
+      --paper: #f3f0e8;
+      --card: #fffcf7;
+      --line: #ddd6c8;
+      --forest: #16382e;
+      --forest-2: #1f4a3d;
+      --moss: #2d6a4f;
+      --moss-soft: #e4efe8;
+      --gold: #c4a35a;
+      --gold-soft: #f7efd8;
       --pin: #9b1c1c;
-      --gold: #c9a227;
-      --shadow: 0 8px 24px rgba(31, 26, 20, 0.08);
-      --radius: 14px;
+      --sienna: #b85c2a;
+      --shadow: 0 10px 28px rgba(20, 34, 28, 0.07);
+      --radius: 16px;
       --sans: "Segoe UI", system-ui, -apple-system, sans-serif;
       --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      --nav-h: 56px;
     }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 10px); }
     body {
       margin: 0;
       background:
-        radial-gradient(1200px 500px at 10% -10%, #fff7ea 0%, transparent 50%),
+        radial-gradient(900px 420px at 0% -10%, #e7f0ea 0%, transparent 55%),
         var(--paper);
       color: var(--ink);
       font-family: var(--sans);
-      line-height: 1.5;
+      line-height: 1.55;
     }
-    a { color: var(--oak); }
+    a { color: var(--moss); }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.15rem; }
+    .wrap-wide { max-width: 1280px; margin: 0 auto; padding: 0 1.15rem; }
     header.app-header {
-      background: var(--walnut);
-      color: #f7f0e6;
-      padding: 1.25rem 1.25rem 1rem;
-    }
-    header .wrap, main, footer .wrap, .toolbar-inner {
-      max-width: 1100px;
-      margin: 0 auto;
+      background: linear-gradient(160deg, var(--forest) 0%, var(--forest-2) 100%);
+      color: #f4f7f5;
+      padding: 1.4rem 0 1.2rem;
     }
     .eyebrow {
       text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-size: 0.7rem;
-      color: #d8c4a4;
-      margin: 0 0 0.35rem;
+      letter-spacing: 0.16em;
+      font-size: 0.68rem;
+      color: #c9d9d1;
+      margin: 0 0 0.4rem;
     }
     h1 {
       font-family: var(--serif);
       font-weight: 600;
-      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
       margin: 0 0 0.35rem;
       letter-spacing: -0.02em;
     }
-    .lede { margin: 0; color: #e8dcc8; max-width: 42rem; }
-    .status-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 1rem;
-      align-items: center;
-      margin-top: 0.85rem;
-      font-size: 0.85rem;
-      color: #d8c4a4;
-    }
+    .lede { margin: 0; color: #d7e2dc; max-width: 40rem; }
+    .status-row { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.9rem; }
     .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
+      display: inline-flex; align-items: center;
       background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 999px;
-      padding: 0.2rem 0.65rem;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 999px; padding: 0.18rem 0.65rem;
+      font-size: 0.8rem; color: #d5e0da;
     }
     .pill.ok { color: #c6e4cb; }
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(243, 234, 220, 0.92);
-      backdrop-filter: blur(8px);
+    nav.site-nav {
+      position: sticky; top: 0; z-index: 40;
+      height: var(--nav-h);
+      background: rgba(243, 240, 232, 0.94);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--line);
     }
-    nav .wrap {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      gap: 0.4rem;
-      overflow-x: auto;
-      padding: 0.5rem 1rem;
+    nav.site-nav .wrap {
+      display: flex; gap: 0.3rem; overflow-x: auto;
+      height: var(--nav-h); align-items: center;
       -webkit-overflow-scrolling: touch;
     }
-    nav a {
-      flex: 0 0 auto;
-      text-decoration: none;
-      color: var(--ink);
-      font-size: 0.82rem;
-      padding: 0.35rem 0.7rem;
-      border-radius: 999px;
-      border: 1px solid transparent;
+    nav.site-nav a {
+      flex: 0 0 auto; text-decoration: none; color: var(--ink);
+      font-size: 0.82rem; padding: 0.32rem 0.7rem; border-radius: 999px;
     }
-    nav a:hover, nav a:focus { background: #fff; border-color: var(--line); }
-    .privacy {
-      margin: 1rem auto 0;
-      max-width: 1100px;
-      padding: 0 1.25rem;
-    }
+    nav.site-nav a:hover { background: #fff; }
+    nav.site-nav a.active { background: var(--forest); color: #fff; }
+    .privacy { padding: 1rem 0 0; }
     .privacy p {
-      background: #fff6e5;
-      border: 1px solid #ead8a6;
+      margin: 0; font-size: 0.9rem;
+      background: var(--gold-soft);
+      border: 1px solid #ead9a8;
       border-left: 4px solid var(--gold);
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
-      margin: 0;
-      font-size: 0.92rem;
+      padding: 0.7rem 1rem; border-radius: 8px;
     }
-    main { padding: 1.25rem; }
-    section {
+    main { padding: 0.4rem 0 5.5rem; }
+    section.block {
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 1.25rem 1.25rem 1.4rem;
-      margin: 1rem 0 1.4rem;
+      padding: 1.25rem 1.25rem 1.35rem;
+      margin: 1.05rem 0;
     }
+    section.block.wide { padding: 1.25rem 1rem 1.35rem; }
     section h2 {
       font-family: var(--serif);
-      font-size: 1.55rem;
-      margin: 0 0 0.35rem;
+      font-size: 1.5rem;
+      margin: 0 0 0.3rem;
     }
-    .section-intro, .hint {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin: 0 0 1rem;
-    }
-    .hint { font-size: 0.85rem; }
-    h3 { margin: 1.1rem 0 0.5rem; font-size: 1.02rem; }
+    .section-intro, .hint { color: var(--muted); margin: 0 0 1rem; }
+    .hint { font-size: 0.88rem; }
+    h3 { margin: 1rem 0 0.45rem; font-size: 1.02rem; }
     [contenteditable="true"] {
-      outline: 1px dashed transparent;
-      border-radius: 4px;
-      padding: 0.05rem 0.2rem;
-      min-height: 1.2em;
+      outline: 1px dashed transparent; border-radius: 4px;
+      padding: 0.05rem 0.2rem; min-height: 1.2em;
     }
-    [contenteditable="true"]:hover { outline-color: #d3c4ab; }
-    [contenteditable="true"]:focus {
-      outline: 2px solid #c9a227;
-      background: #fffaf0;
+    [contenteditable="true"]:hover { outline-color: #c9d4ce; }
+    [contenteditable="true"]:focus { outline: 2px solid var(--gold); background: #fffaf0; }
+    ul.notes { margin: 0.25rem 0 0.6rem; padding-left: 1.15rem; }
+    li + li { margin-top: 0.22rem; }
+    .row-actions { display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.65rem 0 0; }
+    button, .file-btn {
+      font: inherit; cursor: pointer; border-radius: 999px;
+      border: 1px solid var(--line); background: #fff; color: var(--ink);
+      padding: 0.4rem 0.85rem; font-size: 0.85rem;
     }
-    ul.notes, ol.notes { margin: 0.3rem 0 0.8rem; padding-left: 1.2rem; }
-    li + li { margin-top: 0.25rem; }
-    .row-actions { display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.6rem 0 0; }
-    button, .btn, .file-btn {
-      font: inherit;
-      cursor: pointer;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--ink);
-      padding: 0.4rem 0.85rem;
-      font-size: 0.85rem;
-    }
-    button:hover, .btn:hover, .file-btn:hover { background: #f7f0e6; }
-    button.primary {
-      background: var(--walnut);
-      color: #f7f0e6;
-      border-color: var(--walnut);
-    }
-    button.primary:hover { background: #3b322c; }
+    button:hover, .file-btn:hover { background: var(--moss-soft); }
+    button.primary { background: var(--forest); color: #f4f7f5; border-color: var(--forest); }
+    button.primary:hover { background: var(--forest-2); }
     button.danger { color: var(--pin); border-color: #e8c4c4; }
     button.icon { padding: 0.2rem 0.5rem; line-height: 1; }
-    .board {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 0.9rem;
-      min-height: 160px;
-      background:
-        repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(61,90,69,0.07) 24px),
-        #f7f3ea;
-      border: 1px dashed #c9b89a;
-      border-radius: 12px;
-      padding: 1rem;
-    }
-    .sticky {
-      position: relative;
-      padding: 0.85rem 0.75rem 1.6rem;
-      min-height: 140px;
-      box-shadow: 2px 3px 0 rgba(31,26,20,0.12);
-      border-radius: 2px;
-    }
-    .sticky .body {
-      font-family: var(--serif);
-      font-size: 0.98rem;
-      white-space: pre-wrap;
-    }
-    .sticky .meta {
-      position: absolute;
-      left: 0.65rem;
-      right: 1.8rem;
-      bottom: 0.4rem;
-      font-size: 0.72rem;
-      color: #5a4a32;
-    }
-    .sticky .remove {
-      position: absolute;
-      top: 0.25rem;
-      right: 0.25rem;
-      background: transparent;
-      border: 0;
-      font-size: 1rem;
-      padding: 0.1rem 0.35rem;
-    }
-    .add-sticky {
-      display: grid;
-      gap: 0.5rem;
-      margin-bottom: 0.9rem;
-    }
-    .add-sticky textarea, select, input[type="text"] {
-      font: inherit;
-      padding: 0.5rem 0.65rem;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-      width: 100%;
-    }
-    .add-sticky textarea { min-height: 70px; resize: vertical; }
-    .add-sticky .fields { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .add-sticky .fields > * { flex: 1 1 140px; }
     .toggle {
-      display: inline-flex;
-      background: #efe6d6;
-      border-radius: 999px;
-      padding: 0.2rem;
-      margin-bottom: 0.9rem;
+      display: inline-flex; background: #ece7dc; border-radius: 999px;
+      padding: 0.18rem; margin: 0 0 1rem; gap: 0.15rem;
     }
     .toggle button[aria-pressed="true"] {
-      background: var(--walnut);
-      color: #fff;
-      border-color: var(--walnut);
+      background: var(--forest); color: #fff; border-color: var(--forest);
     }
-    .org {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.7rem;
+    /* Whiteboard */
+    .wb-tools { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 0.7rem; }
+    .wb-frame {
+      height: 75vh; min-height: 520px;
+      border: 1px solid var(--line); border-radius: 12px;
+      overflow: hidden; background: #faf8f3; position: relative;
     }
-    .org-children {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 0.7rem;
-      width: 100%;
+    .wb-frame:fullscreen, .wb-frame:-webkit-full-screen { height: 100vh; width: 100%; border-radius: 0; }
+    .wb-frame .excalidraw, .wb-frame .tl-container { height: 100%; width: 100%; }
+    .wb-status {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      color: var(--muted); background: #faf8f3; z-index: 2;
     }
-    .person, .tech, .case, .proc-step {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 0.8rem;
+    .wb-frame.ready .wb-status { display: none; }
+    .wb-frame.failed .wb-status { color: var(--pin); }
+    /* Org chart */
+    .orgchart { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 0.4rem 0 1.2rem; }
+    .org-level { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.8rem 1rem; width: 100%; }
+    .org-node {
+      background: #fff; border: 1px solid var(--line); border-radius: 12px;
+      padding: 0.7rem 0.85rem; min-width: 150px; max-width: 200px; text-align: center;
+      box-shadow: var(--shadow);
     }
-    .person.founder { border-top: 4px solid var(--oak); max-width: 280px; }
-    .person.external { border-style: dashed; }
-    .person .role, .tech .role, .case .value { color: var(--oak); font-size: 0.82rem; font-weight: 600; }
-    .person h3, .tech h3, .case h3 { margin: 0.15rem 0 0.35rem; font-family: var(--serif); font-size: 1.15rem; }
-    .depts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.8rem; }
-    .dept {
-      background: #faf6ef;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 0.8rem;
+    .org-node.founder { border-top: 4px solid var(--moss); max-width: 220px; }
+    .org-node.external { border-style: dashed; border-color: #9aa59e; }
+    .org-node .role { color: var(--moss); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+    .org-node h3 { margin: 0.15rem 0 0; font-family: var(--serif); font-size: 1.12rem; }
+    .org-stem, .org-bar, .org-branch {
+      background: #b7c4bd;
     }
-    .dept h3 { margin-top: 0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
-    .tech-grid, .case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.8rem; }
-    .case.pinned { border: 1px solid #e8c4c4; box-shadow: 0 0 0 3px #f8e8e8; }
+    .org-stem { width: 2px; height: 22px; margin: 0 auto; }
+    .org-bar-wrap { position: relative; width: min(100%, 760px); height: 22px; }
+    .org-bar { position: absolute; top: 0; left: 12.5%; right: 12.5%; height: 2px; }
+    .org-branch { position: absolute; top: 0; width: 2px; height: 22px; }
+    .org-branch:nth-child(2) { left: 12.5%; }
+    .org-branch:nth-child(3) { left: 37.5%; }
+    .org-branch:nth-child(4) { left: 62.5%; }
+    .org-branch:nth-child(5) { left: 87.5%; }
+    .org-external-row { margin-top: 1rem; }
+    .ext-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.3rem; text-align: center; }
+    /* Power interest */
+    .matrix-wrap { display: grid; grid-template-columns: 2.2rem 1fr 1fr; grid-template-rows: 1.6rem 1fr 1fr; gap: 0.45rem; margin-bottom: 1rem; }
+    .mx-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); display: flex; align-items: center; justify-content: center; }
+    .mx-label.v { writing-mode: vertical-rl; transform: rotate(180deg); }
+    .mx-cell {
+      background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 0.7rem;
+      min-height: 140px;
+    }
+    .mx-cell h3 { margin: 0 0 0.5rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--moss); }
+    .mx-cell.manage { background: #eef6f1; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .chip {
+      background: #fff; border: 1px solid var(--line); border-radius: 999px;
+      padding: 0.25rem 0.65rem; font-size: 0.85rem;
+    }
+    .role-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.75rem; }
+    .role-card, .tech-card, .case, .proc-step {
+      background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 0.85rem;
+    }
+    .role-card h3, .tech-card h3, .case h3 { margin: 0.1rem 0 0.35rem; font-family: var(--serif); font-size: 1.15rem; }
+    .kicker { color: var(--moss); font-size: 0.78rem; font-weight: 700; }
+    .pain { margin-top: 0.45rem; padding-top: 0.45rem; border-top: 1px dashed var(--line); }
+    .pain .kicker { color: var(--sienna); }
+    /* Tech / mermaid */
+    .diagram {
+      background: #fff; border: 1px solid var(--line); border-radius: 12px;
+      padding: 0.6rem 0.4rem 0.2rem; overflow-x: auto; margin-bottom: 0.9rem;
+    }
+    .diagram .mermaid, .diagram svg { margin: 0 auto; max-width: 100% !important; height: auto !important; }
+    .legend { font-size: 0.85rem; color: var(--muted); margin: 0 0 0.8rem; }
+    .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0.7rem; }
+    /* Folds */
+    details.fold {
+      border: 1px solid var(--line); border-radius: 12px; background: #fff;
+      padding: 0.15rem 0.8rem 0.7rem; margin: 0 0 0.65rem;
+    }
+    details.fold > summary {
+      cursor: pointer; font-family: var(--serif); font-size: 1.12rem;
+      padding: 0.7rem 0; list-style: none; display: flex; align-items: center; gap: 0.5rem;
+    }
+    details.fold > summary::-webkit-details-marker { display: none; }
+    details.fold > summary::before { content: "▸"; color: var(--moss); font-size: 0.85rem; }
+    details.fold[open] > summary::before { content: "▾"; }
+    .steps { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .proc-step { flex: 1 1 140px; position: relative; padding-top: 1.5rem; }
+    .proc-step .n { position: absolute; top: 0.4rem; left: 0.7rem; font-size: 0.7rem; font-weight: 700; color: var(--sienna); }
+    .case-grid { display: grid; grid-template-columns: 1fr; gap: 0.65rem; }
+    @media (min-width: 800px) {
+      .case-grid { grid-template-columns: 1fr 1fr; }
+      .case-grid .pinned { grid-column: 1 / -1; }
+    }
+    .case.pinned { border-color: #e8c4c4; box-shadow: 0 0 0 3px #f8e8e8; }
     .badge {
-      display: inline-block;
-      background: var(--pin);
-      color: #fff;
-      font-size: 0.68rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 0.15rem 0.45rem;
-      border-radius: 999px;
-      margin-bottom: 0.35rem;
-    }
-    .processes { display: grid; gap: 1.1rem; }
-    .steps {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      align-items: stretch;
-    }
-    .proc-step {
-      flex: 1 1 140px;
-      position: relative;
-      padding-top: 1.6rem;
-    }
-    .proc-step .n {
-      position: absolute;
-      top: 0.45rem;
-      left: 0.7rem;
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--sienna);
+      display: inline-block; background: var(--pin); color: #fff;
+      font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.15rem 0.45rem; border-radius: 999px; margin-bottom: 0.3rem;
     }
     .checklist { list-style: none; margin: 0; padding: 0; }
     .checklist li {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 0.5rem;
-      align-items: start;
-      padding: 0.45rem 0;
-      border-bottom: 1px solid var(--line);
+      display: grid; grid-template-columns: auto 1fr auto; gap: 0.5rem;
+      align-items: start; padding: 0.42rem 0; border-bottom: 1px solid var(--line);
     }
     .checklist input[type="checkbox"] { margin-top: 0.35rem; width: 1.05rem; height: 1.05rem; }
     .toolbar {
-      position: sticky;
-      bottom: 0;
-      z-index: 20;
-      background: rgba(42, 36, 32, 0.96);
-      color: #f7f0e6;
-      padding: 0.65rem 1rem;
+      position: sticky; bottom: 0; z-index: 40;
+      background: rgba(22, 56, 46, 0.96); color: #f4f7f5; padding: 0.6rem 0;
     }
-    .toolbar-inner {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      align-items: center;
-    }
+    .toolbar .wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
     .toolbar button, .toolbar .file-btn {
-      background: #3b322c;
-      color: #f7f0e6;
-      border-color: #53483f;
+      background: #1f4a3d; color: #f4f7f5; border-color: #2d5c4d;
     }
     .toolbar .save-msg { margin-left: auto; font-size: 0.8rem; color: #c6e4cb; }
-    footer {
-      padding: 2rem 1.25rem 6rem;
-      color: var(--muted);
-      text-align: center;
-      font-size: 0.9rem;
-    }
+    footer { padding: 1.6rem 0 6rem; color: var(--muted); text-align: center; font-size: 0.9rem; }
     footer strong { color: var(--ink); font-family: var(--serif); }
-    details.uncertainties { margin-top: 1rem; }
-    @media (max-width: 640px) {
-      section { padding: 1rem; }
-      .toolbar-inner { justify-content: center; }
-      .toolbar .save-msg { width: 100%; text-align: center; margin: 0.2rem 0 0; }
+    details.uncertainties { margin-top: 0.8rem; color: var(--muted); font-size: 0.92rem; }
+    @media (max-width: 700px) {
+      .org-bar-wrap { display: none; }
+      .org-stem { display: none; }
+      .org-node { max-width: none; flex: 1 1 140px; }
+      .matrix-wrap { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .mx-label { writing-mode: initial; transform: none; justify-content: flex-start; padding: 0.2rem 0 0; }
+      .toolbar .save-msg { width: 100%; margin: 0.2rem 0 0; text-align: center; }
     }
     @media print {
-      nav, .toolbar, .row-actions, .add-sticky, .privacy { display: none !important; }
-      section { break-inside: avoid; box-shadow: none; }
-      body { background: #fff; }
+      nav, .toolbar, .row-actions, .privacy, .wb-tools { display: none !important; }
+      .wb-frame { height: 500px; }
+      section.block { break-inside: avoid; box-shadow: none; }
     }
   </style>
 </head>
@@ -360,14 +286,14 @@
     <div class="wrap">
       <p class="eyebrow">Digital Drumm discovery</p>
       <h1>Drumm Carpentry</h1>
-      <p class="lede">Notes from the session with Mary, so the team can see how work actually runs today — and add to it.</p>
+      <p class="lede">How work runs today — people, systems and the hand-offs between them — so the team can add to it.</p>
       <div class="status-row">
         <span class="pill">November 2026</span>
         <span class="pill ok" id="save-pill">Edits save in this browser</span>
       </div>
     </div>
   </header>
-  <nav>
+  <nav class="site-nav">
     <div class="wrap">
       <a href="#notes">Key notes</a>
       <a href="#board">Whiteboard</a>
@@ -378,92 +304,90 @@
       <a href="#monthly">Monthly reports</a>
     </div>
   </nav>
-  <div class="privacy">
+  <div class="wrap privacy">
     <p>This page is public. Customer names, addresses, phone numbers, emails, IBAN/BIC/sort codes, account numbers, VAT/CRO numbers and exact loan amounts have been left out. Quote figures below are generic examples only.</p>
   </div>
   <main>
-    <section id="notes">
-      <h2>Key notes</h2>
-      <p class="section-intro" data-edit="keyIntro"></p>
-      <div id="key-groups"></div>
-      <div class="row-actions">
-        <button type="button" id="add-group">Add note group</button>
-      </div>
-      <details class="uncertainties">
-        <summary>Reading uncertainties from the handwriting</summary>
-        <div id="uncertainties" data-edit="uncertainties"></div>
-      </details>
-    </section>
+    <div class="wrap">
+      <section class="block" id="notes">
+        <h2>Key notes</h2>
+        <p class="section-intro" data-edit="keyIntro"></p>
+        <div id="key-groups"></div>
+        <div class="row-actions"><button type="button" id="add-group">Add note group</button></div>
+        <details class="uncertainties">
+          <summary>Reading notes from the handwriting</summary>
+          <div id="uncertainties" data-edit="uncertainties"></div>
+        </details>
+      </section>
+    </div>
 
-    <section id="board">
-      <h2>Whiteboard</h2>
-      <p class="hint">Lami and staff can add sticky notes here. Notes stay in this browser until you export or download the page.</p>
-      <div class="add-sticky">
-        <textarea id="sticky-text" placeholder="Write a note…"></textarea>
-        <div class="fields">
-          <input type="text" id="sticky-author" list="author-list" placeholder="Name (e.g. Lami)" />
-          <datalist id="author-list">
-            <option value="Lami"></option>
-            <option value="Mary"></option>
-            <option value="Darren"></option>
-            <option value="Tony"></option>
-            <option value="Ines"></option>
-            <option value="Gavin"></option>
-            <option value="Shane"></option>
-          </datalist>
-          <select id="sticky-color" aria-label="Note colour">
-            <option value="#fde68a">Yellow</option>
-            <option value="#fbcfe8">Pink</option>
-            <option value="#bbf7d0">Green</option>
-            <option value="#bfdbfe">Blue</option>
-            <option value="#fed7aa">Orange</option>
-          </select>
-          <button type="button" class="primary" id="add-sticky">Add sticky</button>
+    <div class="wrap-wide">
+      <section class="block wide" id="board">
+        <h2>Whiteboard</h2>
+        <p class="hint">A shared canvas for Lami and staff — stickies, arrows and sketches, in the style of a Miro board. It autosaves in this browser. Use the buttons to take a copy with you.</p>
+        <div class="wb-tools">
+          <button type="button" class="primary" id="wb-fullscreen">Fullscreen</button>
+          <button type="button" id="wb-export">Export scene</button>
+          <label class="file-btn">Import scene
+            <input type="file" id="wb-import" accept=".excalidraw,application/json,.json" hidden />
+          </label>
+          <button type="button" id="wb-png">Export PNG</button>
         </div>
-      </div>
-      <div class="board" id="sticky-board"></div>
-    </section>
+        <div class="wb-frame" id="wb-frame">
+          <div class="wb-status" id="wb-status">Loading the whiteboard…</div>
+          <div id="excalidraw-root" style="height:100%;width:100%"></div>
+        </div>
+      </section>
+    </div>
 
-    <section id="people">
-      <h2>Stakeholder map</h2>
-      <p class="hint">Switch between a hierarchy and a department view. Names, roles and notes are editable.</p>
-      <div class="toggle" role="group" aria-label="Map view">
-        <button type="button" id="view-hierarchy">Hierarchy</button>
-        <button type="button" id="view-department">Department</button>
-      </div>
-      <div id="people-map"></div>
-    </section>
+    <div class="wrap">
+      <section class="block" id="people">
+        <h2>Stakeholder map</h2>
+        <p class="hint">Organisation chart, or a power/interest grid. Cards under the diagram list responsibilities and pain points from the notes.</p>
+        <div class="toggle" role="group" aria-label="Stakeholder view">
+          <button type="button" id="view-org">Organisation chart</button>
+          <button type="button" id="view-grid">Power / interest</button>
+        </div>
+        <div id="people-map"></div>
+        <h3>Roles, responsibilities and pain points</h3>
+        <div class="role-grid" id="role-grid"></div>
+      </section>
 
-    <section id="stack">
-      <h2>Tech stack</h2>
-      <p class="section-intro">Tools in use today, plus the custom ERP now in progress.</p>
-      <div class="tech-grid" id="tech-grid"></div>
-    </section>
+      <section class="block" id="stack">
+        <h2>Tech stack</h2>
+        <p class="section-intro">Systems and data stores in use today, the manual flows between them, and a future view with the custom ERP as the system of record.</p>
+        <div class="toggle" role="group" aria-label="Architecture view">
+          <button type="button" id="view-today">Today</button>
+          <button type="button" id="view-future">Future state</button>
+        </div>
+        <p class="legend" id="stack-legend"></p>
+        <div class="diagram"><div class="mermaid" id="stack-diagram"></div></div>
+        <div class="tech-grid" id="tech-grid"></div>
+      </section>
 
-    <section id="processes">
-      <h2>Process maps</h2>
-      <p class="section-intro">How money and jobs move through the office. Click any step to edit it.</p>
-      <div class="processes" id="processes"></div>
-    </section>
+      <section class="block" id="processes">
+        <h2>Process maps</h2>
+        <p class="section-intro">How money and jobs move through the office. Open a process to edit its steps.</p>
+        <div id="processes"></div>
+      </section>
 
-    <section id="cases">
-      <h2>Use cases</h2>
-      <p class="section-intro">Numbered opportunities from the discovery session. The creditors report is pinned at the top because it currently takes two days every month.</p>
-      <div class="case-grid" id="case-grid"></div>
-    </section>
+      <section class="block" id="cases">
+        <h2>Use cases</h2>
+        <p class="section-intro">Numbered opportunities from the session. The creditors report is pinned at the top because it currently takes two days every month.</p>
+        <div class="case-grid" id="case-grid"></div>
+      </section>
 
-    <section id="monthly">
-      <h2>Monthly reports checklist</h2>
-      <p class="section-intro" data-edit="monthlyIntro"></p>
-      <ul class="checklist" id="monthly-list"></ul>
-      <div class="row-actions">
-        <button type="button" id="add-month-item">Add checklist item</button>
-      </div>
-    </section>
+      <section class="block" id="monthly">
+        <h2>Monthly reports checklist</h2>
+        <p class="section-intro" data-edit="monthlyIntro"></p>
+        <ul class="checklist" id="monthly-list"></ul>
+        <div class="row-actions"><button type="button" id="add-month-item">Add checklist item</button></div>
+      </section>
+    </div>
   </main>
 
   <div class="toolbar">
-    <div class="toolbar-inner">
+    <div class="wrap">
       <button type="button" class="primary" id="export-json">Export JSON</button>
       <label class="file-btn">Import JSON
         <input type="file" id="import-json" accept="application/json,.json" hidden />
@@ -473,16 +397,16 @@
       <span class="save-msg" id="save-msg">Saved in this browser only</span>
     </div>
   </div>
-
   <footer>
     <div class="wrap">
       <p><strong>Digital Drumm</strong> · Drumm Carpentry discovery workspace · November 2026</p>
-      <p>Edits autosave in this browser only. They are not written back to GitHub. Use Export JSON or Download HTML to keep or share a copy, and Import JSON to load it on another phone or computer.</p>
+      <p>Edits autosave in this browser only. They are not written back to GitHub. Use Export JSON or Download HTML to keep or share a copy, and Import JSON to load it on another phone or computer. The whiteboard also has its own scene export.</p>
     </div>
   </footer>
 
 <script>
-const STORAGE_KEY = "drumm-carpentry-discovery-v1";
+const STORAGE_KEY = "drumm-carpentry-discovery-v2";
+const WB_KEY = "drumm-carpentry-whiteboard-v1";
 /*STATE:START*/
 const BUILTIN_STATE = {
   "version": 1,
@@ -519,22 +443,124 @@ const BUILTIN_STATE = {
     }
   ],
   "stickies": [],
-  "mapView": "hierarchy",
+  "mapView": "org",
   "people": [
-    {"id": "darren", "name": "Darren", "role": "Founder", "dept": "Leadership", "reportsTo": null, "external": false, "notes": "Sales alongside Tony. Texts go onto the schedule. Receives supplier invoices by Gmail with accounts."},
-    {"id": "mary", "name": "Mary", "role": "Bookkeeper", "dept": "Finance", "reportsTo": "darren", "external": false, "notes": "Day-in-the-life starts 7:30–9:30 with the bank statement. About two hours a day on deposits and reconciliation. Also payroll, sundry payments and monthly reports."},
-    {"id": "lami", "name": "Lami", "role": "Purchase orders", "dept": "Operations", "reportsTo": "darren", "external": false, "notes": "Purchase orders that require payments. Use the whiteboard to add anything this page is missing."},
-    {"id": "tony", "name": "Tony", "role": "Sales", "dept": "Sales", "reportsTo": "darren", "external": false, "notes": "Commissions at month end. Sends the invoice or quote template into a WhatsApp group, then the payment schedule."},
-    {"id": "ines", "name": "Ines", "role": "Showroom reception", "dept": "Showroom", "reportsTo": "darren", "external": false, "notes": "Takes deposits in the showroom, adds them to the Schedule Sheet, highlights jobs going ahead, raises invoices, and checks the schedule for the second payment."},
-    {"id": "gavin", "name": "Gavin", "role": "External accountant", "dept": "Finance", "reportsTo": "darren", "external": true, "notes": "Revenue / tax double-check and the RCT report on the monthly pack."}
+    {
+      "id": "darren",
+      "name": "Darren",
+      "role": "Founder",
+      "dept": "Leadership",
+      "reportsTo": null,
+      "external": false,
+      "notes": "Sales alongside Tony. Texts go onto the schedule. Receives supplier invoices by Gmail with accounts.",
+      "responsibilities": "Founder. Sells alongside Tony, texts jobs onto the schedule, and receives supplier invoices with the accounts inbox.",
+      "pain": "Coordination still runs over WhatsApp and texts, then has to be copied onto the Schedule Sheet and into Sage.",
+      "power": "high",
+      "interest": "high",
+      "quadrant": "manage"
+    },
+    {
+      "id": "mary",
+      "name": "Mary",
+      "role": "Bookkeeper",
+      "dept": "Finance",
+      "reportsTo": "darren",
+      "external": false,
+      "notes": "Day-in-the-life starts 7:30–9:30 with the bank statement. About two hours a day on deposits and reconciliation. Also payroll, sundry payments and monthly reports.",
+      "responsibilities": "Bookkeeper. Daily bank reconciliation (~2 hours, 7:30–9:30), payroll, sundry payments, monthly reports and the creditors report.",
+      "pain": "Bank rec takes about two hours every day. The creditors report takes two days a month. The monthly pack takes about a week. The business is living off deposits, so they have to be balanced.",
+      "power": "high",
+      "interest": "high",
+      "quadrant": "manage"
+    },
+    {
+      "id": "lami",
+      "name": "Lami",
+      "role": "Purchase orders",
+      "dept": "Operations",
+      "reportsTo": "darren",
+      "external": false,
+      "notes": "Purchase orders that require payments. Use the whiteboard to add anything this page is missing.",
+      "responsibilities": "Purchase orders that require payments, tied into Jobs to Order and supplier invoices.",
+      "pain": "Purchase orders still depend on manual payment checks and hand-offs across sheets and Sage.",
+      "power": "low",
+      "interest": "high",
+      "quadrant": "inform"
+    },
+    {
+      "id": "tony",
+      "name": "Tony",
+      "role": "Sales",
+      "dept": "Sales",
+      "reportsTo": "darren",
+      "external": false,
+      "notes": "Commissions at month end. Sends the invoice or quote template into a WhatsApp group, then the payment schedule.",
+      "responsibilities": "Sales. Sends quote and invoice templates to a WhatsApp group, follows the payment schedule, and earns commission from month-end lodgements.",
+      "pain": "Invoice creation is manual and duplicated. Commission depends on lodgements, and credit notes have to be deducted by hand.",
+      "power": "low",
+      "interest": "high",
+      "quadrant": "inform"
+    },
+    {
+      "id": "ines",
+      "name": "Ines",
+      "role": "Showroom reception",
+      "dept": "Showroom",
+      "reportsTo": "darren",
+      "external": false,
+      "notes": "Takes deposits in the showroom, adds them to the Schedule Sheet, highlights jobs going ahead, raises invoices, and checks the schedule for the second payment.",
+      "responsibilities": "Showroom reception. Takes deposits, adds them to the Schedule Sheet, highlights jobs going ahead, raises invoices, and checks the schedule for the second payment.",
+      "pain": "The same deposit is handled in the showroom, on the Schedule Sheet, and again in Sage.",
+      "power": "low",
+      "interest": "high",
+      "quadrant": "inform"
+    },
+    {
+      "id": "gavin",
+      "name": "Gavin",
+      "role": "External accountant",
+      "dept": "Finance",
+      "reportsTo": "darren",
+      "external": true,
+      "notes": "Revenue / tax double-check and the RCT report on the monthly pack.",
+      "responsibilities": "External accountant. Tax double-check on the revenue page, and the RCT report for the monthly pack.",
+      "pain": "Depends on a complete, timely pack from the office. Tax review is a separate loop from day-to-day bookkeeping.",
+      "power": "high",
+      "interest": "low",
+      "quadrant": "satisfy"
+    }
   ],
   "tech": [
-    {"name": "Sage", "role": "Accounts", "notes": "Sales invoices, supplier invoices, payment allocation, aged debtors and creditors, nominals, trial balance, P&L, balance sheet. Special orders get a customer-ref tag on the invoice and in Sage."},
-    {"name": "Gmail", "role": "Inbox", "notes": "Supplier invoices arrive by email to accounts and Darren. Receipts and invoices are emailed to clients once due dates are updated."},
-    {"name": "Google Sheets — Schedule Sheet", "role": "Company bible", "notes": "Work weeks, deposits, jobs going ahead, and second-payment marks. Ines and Mary both use it. Central to daily operations."},
-    {"name": "AIB", "role": "Bank", "notes": "Daily printed statement, deposit identification, daily reconciliation, lodgements and fixed loan / Visa payments."},
-    {"name": "WhatsApp", "role": "Sales coordination", "notes": "Tony sends the invoice or quote template and payment schedule to a group. Darren also texts; jobs then land on the schedule."},
-    {"name": "Custom ERP", "role": "In progress", "notes": "Being built for scheduling and client management. Monthly reporting still takes about a week to create and check."}
+    {
+      "name": "Sage",
+      "role": "Accounts",
+      "notes": "Sales invoices, supplier invoices, payment allocation, aged debtors and creditors, nominals, trial balance, P&L, balance sheet. Special orders get a customer-ref tag on the invoice and in Sage."
+    },
+    {
+      "name": "Gmail",
+      "role": "Inbox",
+      "notes": "Supplier invoices arrive by email to accounts and Darren. Receipts and invoices are emailed to clients once due dates are updated."
+    },
+    {
+      "name": "Google Sheets — Schedule Sheet",
+      "role": "Company bible",
+      "notes": "Work weeks, deposits, jobs going ahead, and second-payment marks. Ines and Mary both use it. Central to daily operations."
+    },
+    {
+      "name": "AIB",
+      "role": "Bank",
+      "notes": "Daily printed statement, deposit identification, daily reconciliation, lodgements and fixed loan / Visa payments."
+    },
+    {
+      "name": "WhatsApp",
+      "role": "Sales coordination",
+      "notes": "Tony sends the invoice or quote template and payment schedule to a group. Darren also texts; jobs then land on the schedule."
+    },
+    {
+      "name": "Custom ERP",
+      "role": "In progress",
+      "notes": "Being built for scheduling and client management. Monthly reporting still takes about a week to create and check."
+    }
   ],
   "processes": [
     {
@@ -577,15 +603,69 @@ const BUILTIN_STATE = {
     }
   ],
   "cases": [
-    {"number": 9, "pinned": true, "title": "Creditors report", "value": "Two days every month — the top-priority use case", "notes": "Weekly supplier statements checked against Sage, then audited. Invoices have to be chased. Typically about four pages of Sage printouts, checked before they are marked correct, and matched to statements."},
-    {"number": 1, "pinned": false, "title": "Daily bank reconciliation (Mary’s morning)", "value": "About two hours every day, 7:30–9:30", "notes": "Print the AIB statement, identify deposits, link them to invoices and clients, and log Darren and Tony deposits. Ines takes showroom deposits and checks the Schedule Sheet for the second payment. The Schedule Sheet is the company bible."},
-    {"number": 2, "pinned": false, "title": "Mary’s payroll", "value": "Recurring payroll run", "notes": "Payroll with the payroll accountant. Run by Mary."},
-    {"number": 3, "pinned": false, "title": "Tax double-check with Gavin", "value": "Revenue accuracy and compliance", "notes": "Gavin’s revenue page, used to double-check tax. The monthly pack also asks for an RCT report from Gavin."},
-    {"number": 4, "pinned": false, "title": "Tony’s commissions", "value": "Month-end sales pay, tied to lodgements", "notes": "Tot up income and add lodgements to month-end commission and Tony’s commission. On the monthly pack, credit notes are deducted from Tony’s commission."},
-    {"number": 5, "pinned": false, "title": "Quote, payment schedule and Sage invoice", "value": "Stops missed staged payments; today this is manual and duplicated", "notes": "Tony sends an invoice or quote template to a WhatsApp group, then a payment schedule, then “paid?”, then the invoice is raised in Sage. Darren texts and the job goes on the schedule. Manual invoice creation is duplicated. One note also describes a Drumm invoice as a deposit to site, split over five payments."},
-    {"number": 6, "pinned": false, "title": "Jobs to be ordered", "value": "Purchasing and delivery control", "notes": "A checklist with sales order number and delivery date. Add the booking deposit or full deposit here, and move the €1,000 booking-deposit list up."},
-    {"number": 7, "pinned": false, "title": "Mary’s sundry payments", "value": "Day-to-day non-job payments", "notes": "Rent as an other payment with no VAT; AIB loans; AIB Group (Visa); Premium Credit (business insurance). Amounts and account numbers are not recorded on this public page."},
-    {"number": 8, "pinned": false, "title": "Monthly reports", "value": "About one week to create and check; a finance breakdown also takes 2–3 days every week", "notes": "See the full checklist below (from the September 2026 list). Theme from the notes: living off deposits — balance all deposits. Custom ERP is in progress. Watch dates."}
+    {
+      "number": 9,
+      "pinned": true,
+      "title": "Creditors report",
+      "value": "Two days every month — the top-priority use case",
+      "notes": "Weekly supplier statements checked against Sage, then audited. Invoices have to be chased. Typically about four pages of Sage printouts, checked before they are marked correct, and matched to statements."
+    },
+    {
+      "number": 1,
+      "pinned": false,
+      "title": "Daily bank reconciliation (Mary’s morning)",
+      "value": "About two hours every day, 7:30–9:30",
+      "notes": "Print the AIB statement, identify deposits, link them to invoices and clients, and log Darren and Tony deposits. Ines takes showroom deposits and checks the Schedule Sheet for the second payment. The Schedule Sheet is the company bible."
+    },
+    {
+      "number": 2,
+      "pinned": false,
+      "title": "Mary’s payroll",
+      "value": "Recurring payroll run",
+      "notes": "Payroll with the payroll accountant. Run by Mary."
+    },
+    {
+      "number": 3,
+      "pinned": false,
+      "title": "Tax double-check with Gavin",
+      "value": "Revenue accuracy and compliance",
+      "notes": "Gavin’s revenue page, used to double-check tax. The monthly pack also asks for an RCT report from Gavin."
+    },
+    {
+      "number": 4,
+      "pinned": false,
+      "title": "Tony’s commissions",
+      "value": "Month-end sales pay, tied to lodgements",
+      "notes": "Tot up income and add lodgements to month-end commission and Tony’s commission. On the monthly pack, credit notes are deducted from Tony’s commission."
+    },
+    {
+      "number": 5,
+      "pinned": false,
+      "title": "Quote, payment schedule and Sage invoice",
+      "value": "Stops missed staged payments; today this is manual and duplicated",
+      "notes": "Tony sends an invoice or quote template to a WhatsApp group, then a payment schedule, then “paid?”, then the invoice is raised in Sage. Darren texts and the job goes on the schedule. Manual invoice creation is duplicated. One note also describes a Drumm invoice as a deposit to site, split over five payments."
+    },
+    {
+      "number": 6,
+      "pinned": false,
+      "title": "Jobs to be ordered",
+      "value": "Purchasing and delivery control",
+      "notes": "A checklist with sales order number and delivery date. Add the booking deposit or full deposit here, and move the €1,000 booking-deposit list up."
+    },
+    {
+      "number": 7,
+      "pinned": false,
+      "title": "Mary’s sundry payments",
+      "value": "Day-to-day non-job payments",
+      "notes": "Rent as an other payment with no VAT; AIB loans; AIB Group (Visa); Premium Credit (business insurance). Amounts and account numbers are not recorded on this public page."
+    },
+    {
+      "number": 8,
+      "pinned": false,
+      "title": "Monthly reports",
+      "value": "About one week to create and check; a finance breakdown also takes 2–3 days every week",
+      "notes": "See the full checklist below (from the September 2026 list). Theme from the notes: living off deposits — balance all deposits. Custom ERP is in progress. Watch dates."
+    }
   ],
   "monthlyIntro": "Checklist from the September 2026 monthly reports list. Tick items as you work. Watch dates.",
   "monthly": [
@@ -611,53 +691,106 @@ const BUILTIN_STATE = {
     "Compare to last month",
     "Unreconciled transactions",
     "Nominal activity"
-  ]
+  ],
+  "stackView": "today"
 };
 /*STATE:END*/
+
+const CURRENT_MERMAID = `flowchart LR
+  subgraph Inputs["Inputs"]
+    direction TB
+    AIB["AIB<br>Statements and Visa"]
+    Gmail["Gmail<br>Accounts inbox"]
+    WA["WhatsApp<br>Quotes and schedules"]
+  end
+  subgraph Ledgers["Manual ledgers"]
+    direction TB
+    SS["Schedule Sheet<br>Company bible"]
+    PR["Payment Register"]
+    JTO["Jobs to Order"]
+  end
+  subgraph Accounts["Accounts"]
+    direction TB
+    Enter["Sage invoice entry<br>MANUAL and duplicated"]
+    Sage["Sage<br>Invoices, suppliers,<br>nominal, reports"]
+  end
+  ERP["Custom ERP<br>not live yet"]
+  AIB -->|"MANUAL · 2 hrs/day rec"| SS
+  SS --> PR
+  SS --> JTO
+  SS --> Enter
+  Gmail -->|"MANUAL · re-key"| Enter
+  WA -->|"MANUAL · quote to invoice"| Enter
+  PR --> Sage
+  JTO --> Sage
+  Enter --> Sage
+  AIB --> Sage
+  ERP -.-> Sage`;
+
+const FUTURE_MERMAID = `flowchart LR
+  subgraph Sources["Sources"]
+    direction TB
+    AIB2["AIB<br>Statements and Visa"]
+    Gmail2["Gmail<br>Accounts inbox"]
+    WA2["WhatsApp<br>Quotes and schedules"]
+  end
+  subgraph ERPBox["Custom ERP — system of record"]
+    direction TB
+    Jobs["Jobs and schedule"]
+    Pay["Deposits and staged payments"]
+    PO["POs and Jobs to Order"]
+    Inv["Invoices and payment register"]
+  end
+  Sage2["Sage<br>Nominal ledger and<br>statutory reports"]
+  AIB2 -->|"Bank feed / import"| Pay
+  Gmail2 -->|"Invoice capture"| Inv
+  WA2 -->|"Quote becomes a job"| Jobs
+  Jobs --> Pay
+  Jobs --> PO
+  Pay --> Inv
+  Inv -->|"Post once, no re-keying"| Sage2`;
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 let state = loadState();
+let excalidrawAPI = null;
+let ExcalidrawLib = null;
+let wbReady = false;
 
 function clone(v) { return JSON.parse(JSON.stringify(v)); }
-
+function normalizeMonth(item) {
+  return typeof item === "string" ? { text: item, done: false } : { text: item.text || "", done: !!item.done };
+}
+function normalize(s) {
+  s.monthly = (s.monthly || []).map(normalizeMonth);
+  s.groups = s.groups || [];
+  s.mapView = s.mapView || "org";
+  s.stackView = s.stackView || "today";
+  return s;
+}
 function loadState() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return normalize(clone(BUILTIN_STATE));
-    const parsed = JSON.parse(raw);
-    return normalize({ ...clone(BUILTIN_STATE), ...parsed, monthly: (parsed.monthly || BUILTIN_STATE.monthly).map(normalizeMonth) });
+    return normalize({ ...clone(BUILTIN_STATE), ...JSON.parse(raw) });
   } catch {
     return normalize(clone(BUILTIN_STATE));
   }
 }
-
-function normalizeMonth(item) {
-  return typeof item === "string" ? { text: item, done: false } : { text: item.text || "", done: !!item.done };
-}
-
-function normalize(s) {
-  s.monthly = (s.monthly || []).map(normalizeMonth);
-  s.stickies = s.stickies || [];
-  s.groups = s.groups || [];
-  return s;
-}
-
 function save(reason) {
   state.savedAt = new Date().toISOString();
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  if (state.whiteboard) localStorage.setItem(WB_KEY, JSON.stringify(state.whiteboard));
   const when = new Date().toLocaleTimeString("en-IE", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Dublin" });
   const msg = reason === "imported" ? "Imported and saved in this browser" : `Saved in this browser · ${when} Ireland time`;
   $("#save-msg").textContent = msg;
   $("#save-pill").textContent = "Saved in this browser";
 }
-
 let saveTimer;
 function scheduleSave() {
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => save(), 250);
+  saveTimer = setTimeout(() => save(), 300);
 }
-
 function bindEditable(el, getter, setter) {
   el.setAttribute("contenteditable", "true");
   el.spellcheck = true;
@@ -666,9 +799,7 @@ function bindEditable(el, getter, setter) {
 }
 
 function render() {
-  const intro = $('[data-edit="keyIntro"]');
-  bindEditable(intro, () => state.keyIntro, v => state.keyIntro = v);
-
+  bindEditable($('[data-edit="keyIntro"]'), () => state.keyIntro, v => state.keyIntro = v);
   const groupsEl = $("#key-groups");
   groupsEl.innerHTML = "";
   state.groups.forEach((g, gi) => {
@@ -685,104 +816,112 @@ function render() {
     const actions = document.createElement("div");
     actions.className = "row-actions";
     const add = document.createElement("button");
-    add.type = "button";
-    add.textContent = "Add line";
+    add.type = "button"; add.textContent = "Add line";
     add.onclick = () => { g.items.push("New note"); save(); render(); };
     const del = document.createElement("button");
-    del.type = "button";
-    del.className = "danger";
-    del.textContent = "Remove group";
+    del.type = "button"; del.className = "danger"; del.textContent = "Remove group";
     del.onclick = () => { state.groups.splice(gi, 1); save(); render(); };
     actions.append(add, del);
     wrap.append(h, ul, actions);
     groupsEl.appendChild(wrap);
   });
-
-  const unc = $('[data-edit="uncertainties"]');
-  bindEditable(unc, () => state.uncertainties, v => state.uncertainties = v);
-
-  const board = $("#sticky-board");
-  board.innerHTML = "";
-  if (!state.stickies.length) {
-    const empty = document.createElement("p");
-    empty.className = "hint";
-    empty.textContent = "No stickies yet. Add the first note above.";
-    empty.style.gridColumn = "1 / -1";
-    board.appendChild(empty);
-  }
-  state.stickies.forEach((s, i) => {
-    const card = document.createElement("article");
-    card.className = "sticky";
-    card.style.background = s.color || "#fde68a";
-    card.style.transform = `rotate(${((i % 5) - 2) * 1.2}deg)`;
-    const body = document.createElement("div");
-    body.className = "body";
-    bindEditable(body, () => s.text, v => s.text = v);
-    const meta = document.createElement("div");
-    meta.className = "meta";
-    bindEditable(meta, () => s.author || "Anonymous", v => s.author = v);
-    const rm = document.createElement("button");
-    rm.className = "remove";
-    rm.type = "button";
-    rm.setAttribute("aria-label", "Remove sticky");
-    rm.textContent = "×";
-    rm.onclick = () => { state.stickies.splice(i, 1); save(); render(); };
-    card.append(rm, body, meta);
-    board.appendChild(card);
-  });
-
-  $("#view-hierarchy").setAttribute("aria-pressed", String(state.mapView === "hierarchy"));
-  $("#view-department").setAttribute("aria-pressed", String(state.mapView === "department"));
+  bindEditable($('[data-edit="uncertainties"]'), () => state.uncertainties, v => state.uncertainties = v);
   renderPeople();
   renderTech();
   renderProcesses();
   renderCases();
   renderMonthly();
+  renderStackDiagram();
 }
 
-function personCard(p, founder) {
-  const art = document.createElement("article");
-  art.className = "person" + (founder ? " founder" : "") + (p.external ? " external" : "");
-  const role = document.createElement("div");
-  role.className = "role";
-  bindEditable(role, () => p.role, v => p.role = v);
-  const name = document.createElement("h3");
-  bindEditable(name, () => p.name, v => p.name = v);
-  const notes = document.createElement("div");
-  bindEditable(notes, () => p.notes, v => p.notes = v);
-  art.append(role, name, notes);
-  return art;
-}
+function personById(id) { return state.people.find(p => p.id === id); }
 
 function renderPeople() {
+  $("#view-org").setAttribute("aria-pressed", String(state.mapView === "org"));
+  $("#view-grid").setAttribute("aria-pressed", String(state.mapView === "grid"));
   const root = $("#people-map");
   root.innerHTML = "";
-  const founder = state.people.find(p => !p.reportsTo) || state.people[0];
-  if (state.mapView === "hierarchy") {
-    const org = document.createElement("div");
-    org.className = "org";
-    if (founder) org.appendChild(personCard(founder, true));
-    const kids = document.createElement("div");
-    kids.className = "org-children";
-    state.people.filter(p => p !== founder).forEach(p => kids.appendChild(personCard(p, false)));
-    org.appendChild(kids);
-    root.appendChild(org);
+  if (state.mapView === "org") {
+    const chart = document.createElement("div");
+    chart.className = "orgchart";
+    const top = document.createElement("div");
+    top.className = "org-level";
+    top.appendChild(orgNode(personById("darren"), true, false));
+    const stem = document.createElement("div"); stem.className = "org-stem";
+    const barWrap = document.createElement("div"); barWrap.className = "org-bar-wrap";
+    barWrap.innerHTML = '<div class="org-bar"></div><div class="org-branch"></div><div class="org-branch"></div><div class="org-branch"></div><div class="org-branch"></div>';
+    const reports = document.createElement("div");
+    reports.className = "org-level";
+    ["mary","lami","tony","ines"].forEach(id => reports.appendChild(orgNode(personById(id), false, false)));
+    const ext = document.createElement("div");
+    ext.className = "org-level org-external-row";
+    const extBox = document.createElement("div");
+    const lab = document.createElement("div");
+    lab.className = "ext-label";
+    lab.textContent = "External · dotted reporting line";
+    extBox.append(lab, orgNode(personById("gavin"), false, true));
+    ext.appendChild(extBox);
+    chart.append(top, stem, barWrap, reports, ext);
+    root.appendChild(chart);
   } else {
-    const depts = [];
-    state.people.forEach(p => { if (!depts.includes(p.dept)) depts.push(p.dept); });
-    const grid = document.createElement("div");
-    grid.className = "depts";
-    depts.forEach(d => {
-      const col = document.createElement("div");
-      col.className = "dept";
-      const h = document.createElement("h3");
-      h.textContent = d;
-      col.appendChild(h);
-      state.people.filter(p => p.dept === d).forEach(p => col.appendChild(personCard(p, p === founder)));
-      grid.appendChild(col);
-    });
-    root.appendChild(grid);
+    const wrap = document.createElement("div");
+    wrap.className = "matrix-wrap";
+    wrap.innerHTML = '<div></div><div class="mx-label">High interest</div><div class="mx-label">Low interest</div>';
+    const v1 = document.createElement("div"); v1.className = "mx-label v"; v1.textContent = "High power";
+    const v2 = document.createElement("div"); v2.className = "mx-label v"; v2.textContent = "Low power";
+    wrap.append(v1, quadrant("Manage closely", "manage", "high", "high"), quadrant("Keep satisfied", "satisfy", "high", "low"),
+                v2, quadrant("Keep informed", "inform", "low", "high"), quadrant("Monitor", "monitor", "low", "low"));
+    root.appendChild(wrap);
   }
+  const grid = $("#role-grid");
+  grid.innerHTML = "";
+  state.people.forEach(p => {
+    const art = document.createElement("article");
+    art.className = "role-card";
+    const role = document.createElement("div"); role.className = "kicker";
+    bindEditable(role, () => p.role, v => p.role = v);
+    const name = document.createElement("h3");
+    bindEditable(name, () => p.name, v => p.name = v);
+    const respL = document.createElement("div"); respL.className = "kicker"; respL.textContent = "Responsibilities";
+    const resp = document.createElement("div");
+    bindEditable(resp, () => p.responsibilities || "", v => p.responsibilities = v);
+    const painWrap = document.createElement("div"); painWrap.className = "pain";
+    const painL = document.createElement("div"); painL.className = "kicker"; painL.textContent = "Pain points";
+    const pain = document.createElement("div");
+    bindEditable(pain, () => p.pain || "", v => p.pain = v);
+    painWrap.append(painL, pain);
+    art.append(role, name, respL, resp, painWrap);
+    grid.appendChild(art);
+  });
+}
+function orgNode(p, founder, external) {
+  const art = document.createElement("article");
+  art.className = "org-node" + (founder ? " founder" : "") + (external ? " external" : "");
+  if (!p) return art;
+  const role = document.createElement("div"); role.className = "role"; role.textContent = p.role;
+  const name = document.createElement("h3"); name.textContent = p.name;
+  art.append(role, name);
+  return art;
+}
+function quadrant(title, cls, power, interest) {
+  const cell = document.createElement("div");
+  cell.className = "mx-cell " + cls;
+  const h = document.createElement("h3"); h.textContent = title;
+  const chips = document.createElement("div"); chips.className = "chips";
+  state.people.filter(p => p.power === power && p.interest === interest).forEach(p => {
+    const c = document.createElement("span");
+    c.className = "chip";
+    c.textContent = p.name + " · " + p.role;
+    chips.appendChild(c);
+  });
+  if (!chips.childElementCount) {
+    const empty = document.createElement("span");
+    empty.className = "hint"; empty.style.margin = "0";
+    empty.textContent = "None placed here yet.";
+    chips.appendChild(empty);
+  }
+  cell.append(h, chips);
+  return cell;
 }
 
 function renderTech() {
@@ -790,9 +929,8 @@ function renderTech() {
   grid.innerHTML = "";
   state.tech.forEach(t => {
     const art = document.createElement("article");
-    art.className = "tech";
-    const role = document.createElement("div");
-    role.className = "role";
+    art.className = "tech-card";
+    const role = document.createElement("div"); role.className = "kicker";
     bindEditable(role, () => t.role, v => t.role = v);
     const name = document.createElement("h3");
     bindEditable(name, () => t.name, v => t.name = v);
@@ -803,27 +941,40 @@ function renderTech() {
   });
 }
 
+function renderStackDiagram() {
+  $("#view-today").setAttribute("aria-pressed", String(state.stackView !== "future"));
+  $("#view-future").setAttribute("aria-pressed", String(state.stackView === "future"));
+  $("#stack-legend").textContent = state.stackView === "future"
+    ? "Future state: the custom ERP becomes the system of record. Bank, inbox and WhatsApp feed it once; Sage is posted from the ERP, without re-keying."
+    : "Today: several manual ledgers sit between the bank, inbox, WhatsApp and Sage. Orange labels mark manual steps. Invoice entry is duplicated across Gmail, WhatsApp and the Schedule Sheet.";
+  const el = $("#stack-diagram");
+  if (!window.mermaid) return;
+  el.removeAttribute("data-processed");
+  el.textContent = state.stackView === "future" ? FUTURE_MERMAID : CURRENT_MERMAID;
+  window.mermaid.run({ nodes: [el] }).catch((err) => {
+    el.textContent = "The diagram could not be drawn: " + err.message;
+  });
+}
+
 function renderProcesses() {
   const root = $("#processes");
   root.innerHTML = "";
   state.processes.forEach((proc, pi) => {
-    const block = document.createElement("div");
-    const h = document.createElement("h3");
-    bindEditable(h, () => proc.title, v => proc.title = v);
+    const fold = document.createElement("details");
+    fold.className = "fold";
+    if (pi === 0) fold.open = true;
+    const sum = document.createElement("summary");
+    bindEditable(sum, () => proc.title, v => proc.title = v);
     const steps = document.createElement("div");
     steps.className = "steps";
     proc.steps.forEach((step, si) => {
       const card = document.createElement("div");
       card.className = "proc-step";
-      const n = document.createElement("div");
-      n.className = "n";
-      n.textContent = String(si + 1).padStart(2, "0");
+      const n = document.createElement("div"); n.className = "n"; n.textContent = String(si + 1).padStart(2, "0");
       const body = document.createElement("div");
       bindEditable(body, () => proc.steps[si], v => proc.steps[si] = v);
       const rm = document.createElement("button");
-      rm.type = "button";
-      rm.className = "icon danger";
-      rm.textContent = "×";
+      rm.type = "button"; rm.className = "icon danger"; rm.textContent = "×";
       rm.setAttribute("aria-label", "Remove step");
       rm.onclick = () => { proc.steps.splice(si, 1); save(); render(); };
       card.append(n, body, rm);
@@ -832,12 +983,11 @@ function renderProcesses() {
     const actions = document.createElement("div");
     actions.className = "row-actions";
     const add = document.createElement("button");
-    add.type = "button";
-    add.textContent = "Add step";
+    add.type = "button"; add.textContent = "Add step";
     add.onclick = () => { proc.steps.push("New step"); save(); render(); };
     actions.appendChild(add);
-    block.append(h, steps, actions);
-    root.appendChild(block);
+    fold.append(sum, steps, actions);
+    root.appendChild(fold);
   });
 }
 
@@ -845,47 +995,45 @@ function renderCases() {
   const grid = $("#case-grid");
   grid.innerHTML = "";
   const cases = [...state.cases].sort((a, b) => (b.pinned - a.pinned) || (a.number - b.number));
-  cases.forEach(c => {
-    const art = document.createElement("article");
-    art.className = "case" + (c.pinned ? " pinned" : "");
+  cases.forEach((c, idx) => {
+    const fold = document.createElement("details");
+    fold.className = "fold case" + (c.pinned ? " pinned" : "");
+    if (c.pinned || idx === 0) fold.open = true;
+    const sum = document.createElement("summary");
+    sum.innerHTML = "";
     if (c.pinned) {
-      const badge = document.createElement("div");
-      badge.className = "badge";
-      badge.textContent = "Pinned · top priority";
-      art.appendChild(badge);
+      const badge = document.createElement("span");
+      badge.className = "badge"; badge.textContent = "Pinned · top priority";
+      sum.appendChild(badge);
     }
-    const num = document.createElement("div");
-    num.className = "role";
-    num.textContent = "Use case #" + c.number;
-    const title = document.createElement("h3");
+    const label = document.createElement("span");
+    label.textContent = "Use case #" + c.number + " — ";
+    const title = document.createElement("span");
     bindEditable(title, () => c.title, v => c.title = v);
+    sum.append(label, title);
     const value = document.createElement("div");
-    value.className = "value";
+    value.className = "kicker";
     bindEditable(value, () => c.value, v => c.value = v);
     const notes = document.createElement("div");
     bindEditable(notes, () => c.notes, v => c.notes = v);
-    art.append(num, title, value, notes);
-    grid.appendChild(art);
+    fold.append(sum, value, notes);
+    grid.appendChild(fold);
   });
 }
 
 function renderMonthly() {
-  const intro = $('[data-edit="monthlyIntro"]');
-  bindEditable(intro, () => state.monthlyIntro, v => state.monthlyIntro = v);
+  bindEditable($('[data-edit="monthlyIntro"]'), () => state.monthlyIntro, v => state.monthlyIntro = v);
   const list = $("#monthly-list");
   list.innerHTML = "";
   state.monthly.forEach((item, i) => {
     const li = document.createElement("li");
     const cb = document.createElement("input");
-    cb.type = "checkbox";
-    cb.checked = !!item.done;
+    cb.type = "checkbox"; cb.checked = !!item.done;
     cb.onchange = () => { item.done = cb.checked; save(); };
     const text = document.createElement("div");
     bindEditable(text, () => item.text, v => item.text = v);
     const rm = document.createElement("button");
-    rm.type = "button";
-    rm.className = "icon danger";
-    rm.textContent = "×";
+    rm.type = "button"; rm.className = "icon danger"; rm.textContent = "×";
     rm.setAttribute("aria-label", "Remove item");
     rm.onclick = () => { state.monthly.splice(i, 1); save(); render(); };
     li.append(cb, text, rm);
@@ -893,41 +1041,18 @@ function renderMonthly() {
   });
 }
 
-$("#add-group").onclick = () => {
-  state.groups.push({ title: "New group", items: ["New note"] });
-  save(); render();
-};
-
-$("#add-sticky").onclick = () => {
-  const text = $("#sticky-text").value.trim();
-  if (!text) { $("#sticky-text").focus(); return; }
-  state.stickies.unshift({
-    text,
-    author: $("#sticky-author").value.trim() || "Anonymous",
-    color: $("#sticky-color").value,
-    createdAt: new Date().toISOString()
-  });
-  $("#sticky-text").value = "";
-  save(); render();
-};
-
-$("#view-hierarchy").onclick = () => { state.mapView = "hierarchy"; save(); render(); };
-$("#view-department").onclick = () => { state.mapView = "department"; save(); render(); };
-
-$("#add-month-item").onclick = () => {
-  state.monthly.push({ text: "New item", done: false });
-  save(); render();
-};
+$("#add-group").onclick = () => { state.groups.push({ title: "New group", items: ["New note"] }); save(); render(); };
+$("#view-org").onclick = () => { state.mapView = "org"; save(); renderPeople(); };
+$("#view-grid").onclick = () => { state.mapView = "grid"; save(); renderPeople(); };
+$("#view-today").onclick = () => { state.stackView = "today"; save(); renderStackDiagram(); };
+$("#view-future").onclick = () => { state.stackView = "future"; save(); renderStackDiagram(); };
+$("#add-month-item").onclick = () => { state.monthly.push({ text: "New item", done: false }); save(); render(); };
 
 $("#export-json").onclick = () => {
+  captureWhiteboardIntoState();
   const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "drumm-carpentry-discovery.json";
-  a.click();
-  URL.revokeObjectURL(a.href);
+  downloadBlob(blob, "drumm-carpentry-discovery.json");
 };
-
 $("#import-json").onchange = (e) => {
   const file = e.target.files && e.target.files[0];
   if (!file) return;
@@ -938,51 +1063,258 @@ $("#import-json").onchange = (e) => {
       state = normalize({ ...clone(BUILTIN_STATE), ...parsed });
       save("imported");
       render();
-    } catch {
-      alert("That file could not be read as JSON.");
-    }
+      if (state.whiteboard && excalidrawAPI) loadSceneIntoBoard(state.whiteboard);
+    } catch { alert("That file could not be read as JSON."); }
   };
   reader.readAsText(file);
   e.target.value = "";
 };
-
 $("#download-html").onclick = () => {
-  const html = document.documentElement.outerHTML;
+  captureWhiteboardIntoState();
   const start = "/*STATE:START*/";
   const end = "/*STATE:END*/";
-  const i = html.indexOf(start);
-  const j = html.indexOf(end);
-  let out = "<!DOCTYPE html>\n" + html;
-  if (i !== -1 && j !== -1) {
-    const replacement = start + "\nconst BUILTIN_STATE = " + JSON.stringify(state) + ";\n" + end;
-    // documentElement.outerHTML may escape, so replace in the live source pattern via current file reconstruction
-  }
-  // Rebuild from current page source is messy if escaped. Use the original script text from this document.
-  const raw = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+  const raw = "<!DOCTYPE html>\\n" + document.documentElement.outerHTML;
   const si = raw.indexOf(start);
   const ei = raw.indexOf(end);
+  let out = raw;
   if (si !== -1 && ei !== -1) {
-    out = raw.slice(0, si) + start + "\nconst BUILTIN_STATE = " + JSON.stringify(state) + ";\n" + end + raw.slice(ei + end.length);
-  } else {
-    out = raw;
+    out = raw.slice(0, si) + start + "\\nconst BUILTIN_STATE = " + JSON.stringify(state) + ";\\n" + end + raw.slice(ei + end.length);
   }
-  const blob = new Blob([out], { type: "text/html;charset=utf-8" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "drumm-carpentry-discovery.html";
-  a.click();
-  URL.revokeObjectURL(a.href);
+  downloadBlob(new Blob([out], { type: "text/html;charset=utf-8" }), "drumm-carpentry-discovery.html");
 };
-
 $("#reset-state").onclick = () => {
-  if (!confirm("Reset this browser’s copy back to the original discovery notes? Stickies and ticks will be cleared.")) return;
+  if (!confirm("Reset this browser’s copy back to the original discovery notes? Whiteboard changes and ticks will be cleared.")) return;
   localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(WB_KEY);
   state = normalize(clone(BUILTIN_STATE));
   save(); render();
+  if (excalidrawAPI && ExcalidrawLib) loadSceneIntoBoard(seedScene());
 };
+
+function downloadBlob(blob, name) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+/* Whiteboard helpers used by the module script */
+function seedElements() {
+  if (!ExcalidrawLib) return [];
+  const els = ExcalidrawLib.convertToExcalidrawElements([
+    { type: "text", x: 80, y: 36, text: "Team whiteboard — stickies, arrows and notes.\nSaves in this browser only.", fontSize: 22, strokeColor: "#16382e", textAlign: "left" },
+    { type: "rectangle", x: 80, y: 140, width: 280, height: 170, backgroundColor: "#ffec99", strokeColor: "#f08c00", label: { text: "Bank reconciliation\n2 hrs/day", fontSize: 20, textAlign: "center" } },
+    { type: "rectangle", x: 380, y: 140, width: 280, height: 170, backgroundColor: "#b2f2bb", strokeColor: "#2f9e44", label: { text: "Schedule Sheet\n= company bible", fontSize: 20, textAlign: "center" } },
+    { type: "rectangle", x: 680, y: 140, width: 280, height: 170, backgroundColor: "#ffc9c9", strokeColor: "#e03131", label: { text: "Creditors\nreport\n2 days/month", fontSize: 20, textAlign: "center" } },
+    { type: "rectangle", x: 230, y: 340, width: 300, height: 160, backgroundColor: "#ffd8a8", strokeColor: "#e8590c", label: { text: "Manual invoice\nduplication", fontSize: 20, textAlign: "center" } }
+  ]);
+  return els.map((el) => {
+    if (el.type === "text" && /Team whiteboard/.test(el.originalText || el.text || "")) {
+      return Object.assign({}, el, { width: 860, height: Math.max(el.height || 0, 90), autoResize: false });
+    }
+    return el;
+  });
+}
+
+function seedScene() {
+  return {
+    type: "excalidraw",
+    version: 2,
+    source: location.href,
+    elements: seedElements(),
+    appState: { viewBackgroundColor: "#f7f3ea", zoom: { value: 1 }, scrollX: 0, scrollY: 0 },
+    files: {}
+  };
+}
+function sceneFromStorage() {
+  try {
+    if (state.whiteboard && state.whiteboard.elements) return state.whiteboard;
+    const raw = localStorage.getItem(WB_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch {}
+  return null;
+}
+function compactScene(elements, appState, files) {
+  return {
+    type: "excalidraw",
+    version: 2,
+    source: location.href,
+    elements: (elements || []).filter(e => !e.isDeleted),
+    appState: {
+      viewBackgroundColor: appState && appState.viewBackgroundColor || "#f7f3ea",
+      gridSize: appState && appState.gridSize || null,
+      zoom: appState && appState.zoom || { value: 1 },
+      scrollX: appState && appState.scrollX || 0,
+      scrollY: appState && appState.scrollY || 0
+    },
+    files: files || {}
+  };
+}
+function captureWhiteboardIntoState() {
+  if (!excalidrawAPI) return;
+  state.whiteboard = compactScene(excalidrawAPI.getSceneElements(), excalidrawAPI.getAppState(), excalidrawAPI.getFiles());
+}
+function fitWhiteboard() {
+  if (!excalidrawAPI) return;
+  try {
+    const els = excalidrawAPI.getSceneElements();
+    if (els && els.length) excalidrawAPI.scrollToContent(els, { fitToContent: true, animate: false });
+  } catch (err) {}
+}
+function loadSceneIntoBoard(scene) {
+  if (!excalidrawAPI || !scene) return;
+  excalidrawAPI.updateScene({
+    elements: scene.elements || [],
+    appState: Object.assign({ viewBackgroundColor: "#f7f3ea" }, scene.appState || {})
+  });
+}
+
+$("#wb-fullscreen").onclick = () => {
+  const frame = $("#wb-frame");
+  if (!document.fullscreenElement) frame.requestFullscreen && frame.requestFullscreen();
+  else document.exitFullscreen && document.exitFullscreen();
+};
+$("#wb-export").onclick = () => {
+  captureWhiteboardIntoState();
+  downloadBlob(new Blob([JSON.stringify(state.whiteboard || seedScene(), null, 2)], { type: "application/json" }), "drumm-carpentry-whiteboard.excalidraw");
+};
+$("#wb-import").onchange = (e) => {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const parsed = JSON.parse(reader.result);
+      const scene = parsed.elements ? parsed : parsed.whiteboard;
+      if (!scene || !scene.elements) throw new Error("no elements");
+      state.whiteboard = scene;
+      save();
+      loadSceneIntoBoard(scene);
+    } catch { alert("That file could not be read as an Excalidraw scene."); }
+  };
+  reader.readAsText(file);
+  e.target.value = "";
+};
+$("#wb-png").onclick = async () => {
+  if (!excalidrawAPI || !ExcalidrawLib) { alert("The whiteboard is still loading."); return; }
+  const blob = await ExcalidrawLib.exportToBlob({
+    elements: excalidrawAPI.getSceneElements(),
+    appState: Object.assign({}, excalidrawAPI.getAppState(), { exportWithDarkMode: false }),
+    files: excalidrawAPI.getFiles(),
+    mimeType: "image/png",
+    exportPadding: 16
+  });
+  downloadBlob(blob, "drumm-carpentry-whiteboard.png");
+};
+
+/* Sticky nav */
+const navLinks = $$("nav.site-nav a");
+const sections = navLinks.map(a => $(a.getAttribute("href"))).filter(Boolean);
+const obs = new IntersectionObserver((entries) => {
+  const vis = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+  if (!vis) return;
+  navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + vis.target.id));
+}, { rootMargin: "-20% 0px -65% 0px", threshold: [0, 0.2, 0.6] });
+sections.forEach(sec => obs.observe(sec));
+
+if (window.mermaid) {
+  mermaid.initialize({
+    startOnLoad: false,
+    securityLevel: "loose",
+    theme: "base",
+    flowchart: { useMaxWidth: true, nodeSpacing: 30, rankSpacing: 40, wrappingWidth: 180 },
+    themeVariables: {
+      primaryColor: "#e4efe8",
+      primaryTextColor: "#14221c",
+      primaryBorderColor: "#2d6a4f",
+      lineColor: "#5a645e",
+      secondaryColor: "#f7efd8",
+      tertiaryColor: "#fffcf7",
+      fontFamily: "Segoe UI, system-ui, sans-serif"
+    }
+  });
+}
 
 render();
 if (localStorage.getItem(STORAGE_KEY)) save();
+</script>
+<script>
+  /* Whiteboard loader — classic script so it shares page helpers */
+  (async function loadWhiteboard() {
+  const status = document.getElementById("wb-status");
+  const frame = document.getElementById("wb-frame");
+  const rootEl = document.getElementById("excalidraw-root");
+
+  async function mountExcalidraw() {
+    const lib = await import("https://esm.sh/@excalidraw/excalidraw@0.18.0/dist/dev/index.js?external=react,react-dom");
+    const React = await import("https://esm.sh/react@19.0.0");
+    const { createRoot } = await import("https://esm.sh/react-dom@19.0.0/client");
+    window.ExcalidrawLib = lib;
+    ExcalidrawLib = lib;
+    const existing = sceneFromStorage();
+    const initial = existing && existing.elements && existing.elements.length ? existing : seedScene();
+    state.whiteboard = initial;
+    let wbSaveTimer;
+    const App = () => React.createElement("div", { style: { height: "100%", width: "100%" } },
+      React.createElement(lib.Excalidraw, {
+        initialData: {
+          elements: initial.elements || [],
+          appState: Object.assign({ viewBackgroundColor: "#f7f3ea", currentItemFontFamily: 1 }, initial.appState || {}),
+          files: initial.files || {},
+          scrollToContent: true
+        },
+        UIOptions: { welcomeScreen: false },
+        theme: "light",
+        excalidrawAPI: (api) => { excalidrawAPI = api; requestAnimationFrame(fitWhiteboard); setTimeout(fitWhiteboard, 300); setTimeout(fitWhiteboard, 900); },
+        onChange: (elements, appState, files) => {
+          clearTimeout(wbSaveTimer);
+          wbSaveTimer = setTimeout(() => {
+            state.whiteboard = compactScene(elements, appState, files);
+            scheduleSave();
+          }, 400);
+        }
+      })
+    );
+    createRoot(rootEl).render(React.createElement(App));
+    frame.classList.add("ready");
+    status.textContent = "Whiteboard ready";
+    rootEl.dataset.ready = "true";
+    wbReady = true;
+  }
+
+  async function mountTldraw() {
+    status.textContent = "Excalidraw did not load. Trying tldraw…";
+    const { Tldraw, createTLStore } = await import("https://esm.sh/tldraw@3.13.1");
+    const React = await import("https://esm.sh/react@19.0.0");
+    const { createRoot } = await import("https://esm.sh/react-dom@19.0.0/client");
+    const css = document.createElement("link");
+    css.rel = "stylesheet";
+    css.href = "https://esm.sh/tldraw@3.13.1/tldraw.css";
+    document.head.appendChild(css);
+    const App = () => React.createElement("div", { style: { height: "100%", width: "100%" } },
+      React.createElement(Tldraw, { persistenceKey: "drumm-carpentry-tldraw" })
+    );
+    createRoot(rootEl).render(React.createElement(App));
+    frame.classList.add("ready");
+    rootEl.dataset.ready = "tldraw";
+    wbReady = true;
+  }
+
+  try {
+    await mountExcalidraw();
+  } catch (err) {
+    console.error(err);
+    try {
+      await mountTldraw();
+    } catch (err2) {
+      console.error(err2);
+      frame.classList.add("failed");
+      status.textContent = "The whiteboard could not be loaded from the CDN. Check the connection and refresh.";
+      rootEl.dataset.ready = "failed";
+    }
+  }
+  })();
 </script>
 </body>
 </html>
