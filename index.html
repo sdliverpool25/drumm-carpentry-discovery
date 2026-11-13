@@ -487,7 +487,7 @@ const STORAGE_KEY = "drumm-carpentry-discovery-v1";
 const BUILTIN_STATE = {
   "version": 1,
   "keyIntro": "A small office team runs a high volume of deposits, staged payments and supplier invoices by hand, across Sage, a Schedule Sheet (the “company bible”), AIB, Gmail and WhatsApp. The custom ERP is in progress. A theme from the session: the business is living off deposits — so deposits need to be balanced.",
-  "uncertainties": "Tony is written throughout the notes; an earlier recollection used Tomy, so the map shows “Tony (Tomy?)”. The notes label showroom reception as INEZ in three places; an earlier recollection used Ines, so the map shows “Ines (Inez?)”. “Mam’s payroll” and “Mam’s sundry payments” are treated as Mary’s runs. “Payment Register will tell you Collur who salesman is” is read as “colour”. The printed bank-statement list has “AIB LOAD”, taken as “AIB LOAN”. One Drumm invoice note says “split payment x5”; the sample quotes use three staged payments (deposit, second payment the week before production, final on completion). Shane’s working sum on a combined kitchen and utility example was 26k / 17.5k / 1.5k = 45k; this page uses a generic example only.",
+  "uncertainties": "Confirmed by Shane (13 Nov 2026): Tony is in sales, Ines is showroom reception, and the payroll and sundry payments are run by Mary. “Payment Register will tell you Collur who salesman is” is read as “colour”. The printed bank-statement list has “AIB LOAD”, taken as “AIB LOAN”. One Drumm invoice note says “split payment x5”; the sample quotes use three staged payments (deposit, second payment the week before production, final on completion). Shane’s working sum on a combined kitchen and utility example was 26k / 17.5k / 1.5k = 45k; this page uses a generic example only.",
   "groups": [
     {
       "title": "How payments work",
@@ -503,7 +503,7 @@ const BUILTIN_STATE = {
       "title": "Schedule Sheet and deposits",
       "items": [
         "The Schedule Sheet is the company bible. It holds work weeks and is where second payments are marked.",
-        "Ines (Inez?) now adds deposits to the Schedule Sheet, highlights a job that is going ahead, and makes the invoice.",
+        "Ines now adds deposits to the Schedule Sheet, highlights a job that is going ahead, and makes the invoice.",
         "Add a booking deposit or a full deposit to Jobs to Order, and move the €1,000 booking-deposit list up.",
         "Add or delete entries in the payment register. Mark off aged debtors, and mark second payments on the work weeks."
       ]
@@ -524,8 +524,8 @@ const BUILTIN_STATE = {
     {"id": "darren", "name": "Darren", "role": "Founder", "dept": "Leadership", "reportsTo": null, "external": false, "notes": "Sales alongside Tony. Texts go onto the schedule. Receives supplier invoices by Gmail with accounts."},
     {"id": "mary", "name": "Mary", "role": "Bookkeeper", "dept": "Finance", "reportsTo": "darren", "external": false, "notes": "Day-in-the-life starts 7:30–9:30 with the bank statement. About two hours a day on deposits and reconciliation. Also payroll, sundry payments and monthly reports."},
     {"id": "lami", "name": "Lami", "role": "Purchase orders", "dept": "Operations", "reportsTo": "darren", "external": false, "notes": "Purchase orders that require payments. Use the whiteboard to add anything this page is missing."},
-    {"id": "tony", "name": "Tony (Tomy?)", "role": "Sales", "dept": "Sales", "reportsTo": "darren", "external": false, "notes": "Commissions at month end. Sends the invoice or quote template into a WhatsApp group, then the payment schedule."},
-    {"id": "ines", "name": "Ines (Inez?)", "role": "Showroom reception", "dept": "Showroom", "reportsTo": "darren", "external": false, "notes": "Takes deposits in the showroom, adds them to the Schedule Sheet, highlights jobs going ahead, raises invoices, and checks the schedule for the second payment."},
+    {"id": "tony", "name": "Tony", "role": "Sales", "dept": "Sales", "reportsTo": "darren", "external": false, "notes": "Commissions at month end. Sends the invoice or quote template into a WhatsApp group, then the payment schedule."},
+    {"id": "ines", "name": "Ines", "role": "Showroom reception", "dept": "Showroom", "reportsTo": "darren", "external": false, "notes": "Takes deposits in the showroom, adds them to the Schedule Sheet, highlights jobs going ahead, raises invoices, and checks the schedule for the second payment."},
     {"id": "gavin", "name": "Gavin", "role": "External accountant", "dept": "Finance", "reportsTo": "darren", "external": true, "notes": "Revenue / tax double-check and the RCT report on the monthly pack."}
   ],
   "tech": [
@@ -579,12 +579,12 @@ const BUILTIN_STATE = {
   "cases": [
     {"number": 9, "pinned": true, "title": "Creditors report", "value": "Two days every month — the top-priority use case", "notes": "Weekly supplier statements checked against Sage, then audited. Invoices have to be chased. Typically about four pages of Sage printouts, checked before they are marked correct, and matched to statements."},
     {"number": 1, "pinned": false, "title": "Daily bank reconciliation (Mary’s morning)", "value": "About two hours every day, 7:30–9:30", "notes": "Print the AIB statement, identify deposits, link them to invoices and clients, and log Darren and Tony deposits. Ines takes showroom deposits and checks the Schedule Sheet for the second payment. The Schedule Sheet is the company bible."},
-    {"number": 2, "pinned": false, "title": "Payroll (“Mam’s payroll”)", "value": "Recurring payroll run", "notes": "Payroll with the payroll accountant. Written in the notes as “Mam’s payroll” — treated here as Mary’s payroll run."},
+    {"number": 2, "pinned": false, "title": "Mary’s payroll", "value": "Recurring payroll run", "notes": "Payroll with the payroll accountant. Run by Mary."},
     {"number": 3, "pinned": false, "title": "Tax double-check with Gavin", "value": "Revenue accuracy and compliance", "notes": "Gavin’s revenue page, used to double-check tax. The monthly pack also asks for an RCT report from Gavin."},
     {"number": 4, "pinned": false, "title": "Tony’s commissions", "value": "Month-end sales pay, tied to lodgements", "notes": "Tot up income and add lodgements to month-end commission and Tony’s commission. On the monthly pack, credit notes are deducted from Tony’s commission."},
     {"number": 5, "pinned": false, "title": "Quote, payment schedule and Sage invoice", "value": "Stops missed staged payments; today this is manual and duplicated", "notes": "Tony sends an invoice or quote template to a WhatsApp group, then a payment schedule, then “paid?”, then the invoice is raised in Sage. Darren texts and the job goes on the schedule. Manual invoice creation is duplicated. One note also describes a Drumm invoice as a deposit to site, split over five payments."},
     {"number": 6, "pinned": false, "title": "Jobs to be ordered", "value": "Purchasing and delivery control", "notes": "A checklist with sales order number and delivery date. Add the booking deposit or full deposit here, and move the €1,000 booking-deposit list up."},
-    {"number": 7, "pinned": false, "title": "Sundry payments (“Mam’s sundry payments”)", "value": "Day-to-day non-job payments", "notes": "Rent as an other payment with no VAT; AIB loans; AIB Group (Visa); Premium Credit (business insurance). Amounts and account numbers are not recorded on this public page."},
+    {"number": 7, "pinned": false, "title": "Mary’s sundry payments", "value": "Day-to-day non-job payments", "notes": "Rent as an other payment with no VAT; AIB loans; AIB Group (Visa); Premium Credit (business insurance). Amounts and account numbers are not recorded on this public page."},
     {"number": 8, "pinned": false, "title": "Monthly reports", "value": "About one week to create and check; a finance breakdown also takes 2–3 days every week", "notes": "See the full checklist below (from the September 2026 list). Theme from the notes: living off deposits — balance all deposits. Custom ERP is in progress. Watch dates."}
   ],
   "monthlyIntro": "Checklist from the September 2026 monthly reports list. Tick items as you work. Watch dates.",
