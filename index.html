@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Drumm Carpentry — Discovery</title>
+  <style>
+    :root {
+      --ink: #1f1a14;
+      --muted: #5c5348;
+      --paper: #f3eadc;
+      --card: #fffdf8;
+      --line: #e0d3bf;
+      --walnut: #2a2420;
+      --oak: #8a5524;
+      --sienna: #c45c26;
+      --moss: #3d5a45;
+      --pin: #9b1c1c;
+      --gold: #c9a227;
+      --shadow: 0 8px 24px rgba(31, 26, 20, 0.08);
+      --radius: 14px;
+      --sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(1200px 500px at 10% -10%, #fff7ea 0%, transparent 50%),
+        var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.5;
+    }
+    a { color: var(--oak); }
+    header.app-header {
+      background: var(--walnut);
+      color: #f7f0e6;
+      padding: 1.25rem 1.25rem 1rem;
+    }
+    header .wrap, main, footer .wrap, .toolbar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.7rem;
+      color: #d8c4a4;
+      margin: 0 0 0.35rem;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      margin: 0 0 0.35rem;
+      letter-spacing: -0.02em;
+    }
+    .lede { margin: 0; color: #e8dcc8; max-width: 42rem; }
+    .status-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      align-items: center;
+      margin-top: 0.85rem;
+      font-size: 0.85rem;
+      color: #d8c4a4;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      padding: 0.2rem 0.65rem;
+    }
+    .pill.ok { color: #c6e4cb; }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(243, 234, 220, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    nav .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.4rem;
+      overflow-x: auto;
+      padding: 0.5rem 1rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    nav a {
+      flex: 0 0 auto;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.82rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    nav a:hover, nav a:focus { background: #fff; border-color: var(--line); }
+    .privacy {
+      margin: 1rem auto 0;
+      max-width: 1100px;
+      padding: 0 1.25rem;
+    }
+    .privacy p {
+      background: #fff6e5;
+      border: 1px solid #ead8a6;
+      border-left: 4px solid var(--gold);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      margin: 0;
+      font-size: 0.92rem;
+    }
+    main { padding: 1.25rem; }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.25rem 1.25rem 1.4rem;
+      margin: 1rem 0 1.4rem;
+    }
+    section h2 {
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      margin: 0 0 0.35rem;
+    }
+    .section-intro, .hint {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 0 0 1rem;
+    }
+    .hint { font-size: 0.85rem; }
+    h3 { margin: 1.1rem 0 0.5rem; font-size: 1.02rem; }
+    [contenteditable="true"] {
+      outline: 1px dashed transparent;
+      border-radius: 4px;
+      padding: 0.05rem 0.2rem;
+      min-height: 1.2em;
+    }
+    [contenteditable="true"]:hover { outline-color: #d3c4ab; }
+    [contenteditable="true"]:focus {
+      outline: 2px solid #c9a227;
+      background: #fffaf0;
+    }
+    ul.notes, ol.notes { margin: 0.3rem 0 0.8rem; padding-left: 1.2rem; }
+    li + li { margin-top: 0.25rem; }
+    .row-actions { display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.6rem 0 0; }
+    button, .btn, .file-btn {
+      font: inherit;
+      cursor: pointer;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      padding: 0.4rem 0.85rem;
+      font-size: 0.85rem;
+    }
+    button:hover, .btn:hover, .file-btn:hover { background: #f7f0e6; }
+    button.primary {
+      background: var(--walnut);
+      color: #f7f0e6;
+      border-color: var(--walnut);
+    }
+    button.primary:hover { background: #3b322c; }
+    button.danger { color: var(--pin); border-color: #e8c4c4; }
+    button.icon { padding: 0.2rem 0.5rem; line-height: 1; }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.9rem;
+      min-height: 160px;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(61,90,69,0.07) 24px),
+        #f7f3ea;
+      border: 1px dashed #c9b89a;
+      border-radius: 12px;
+      padding: 1rem;
+    }
+    .sticky {
+      position: relative;
+      padding: 0.85rem 0.75rem 1.6rem;
+      min-height: 140px;
+      box-shadow: 2px 3px 0 rgba(31,26,20,0.12);
+      border-radius: 2px;
+    }
+    .sticky .body {
+      font-family: var(--serif);
+      font-size: 0.98rem;
+      white-space: pre-wrap;
+    }
+    .sticky .meta {
+      position: absolute;
+      left: 0.65rem;
+      right: 1.8rem;
+      bottom: 0.4rem;
+      font-size: 0.72rem;
+      color: #5a4a32;
+    }
+    .sticky .remove {
+      position: absolute;
+      top: 0.25rem;
+      right: 0.25rem;
+      background: transparent;
+      border: 0;
+      font-size: 1rem;
+      padding: 0.1rem 0.35rem;
+    }
+    .add-sticky {
+      display: grid;
+      gap: 0.5rem;
+      margin-bottom: 0.9rem;
+    }
+    .add-sticky textarea, select, input[type="text"] {
+      font: inherit;
+      padding: 0.5rem 0.65rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      width: 100%;
+    }
+    .add-sticky textarea { min-height: 70px; resize: vertical; }
+    .add-sticky .fields { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .add-sticky .fields > * { flex: 1 1 140px; }
+    .toggle {
+      display: inline-flex;
+      background: #efe6d6;
+      border-radius: 999px;
+      padding: 0.2rem;
+      margin-bottom: 0.9rem;
+    }
+    .toggle button[aria-pressed="true"] {
+      background: var(--walnut);
+      color: #fff;
+      border-color: var(--walnut);
+    }
+    .org {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .org-children {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 0.7rem;
+      width: 100%;
+    }
+    .person, .tech, .case, .proc-step {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.8rem;
+    }
+    .person.founder { border-top: 4px solid var(--oak); max-width: 280px; }
+    .person.external { border-style: dashed; }
+    .person .role, .tech .role, .case .value { color: var(--oak); font-size: 0.82rem; font-weight: 600; }
+    .person h3, .tech h3, .case h3 { margin: 0.15rem 0 0.35rem; font-family: var(--serif); font-size: 1.15rem; }
+    .depts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.8rem; }
+    .dept {
+      background: #faf6ef;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.8rem;
+    }
+    .dept h3 { margin-top: 0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+    .tech-grid, .case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.8rem; }
+    .case.pinned { border: 1px solid #e8c4c4; box-shadow: 0 0 0 3px #f8e8e8; }
+    .badge {
+      display: inline-block;
+      background: var(--pin);
+      color: #fff;
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      margin-bottom: 0.35rem;
+    }
+    .processes { display: grid; gap: 1.1rem; }
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: stretch;
+    }
+    .proc-step {
+      flex: 1 1 140px;
+      position: relative;
+      padding-top: 1.6rem;
+    }
+    .proc-step .n {
+      position: absolute;
+      top: 0.45rem;
+      left: 0.7rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--sienna);
+    }
+    .checklist { list-style: none; margin: 0; padding: 0; }
+    .checklist li {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 0.5rem;
+      align-items: start;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .checklist input[type="checkbox"] { margin-top: 0.35rem; width: 1.05rem; height: 1.05rem; }
+    .toolbar {
+      position: sticky;
+      bottom: 0;
+      z-index: 20;
+      background: rgba(42, 36, 32, 0.96);
+      color: #f7f0e6;
+      padding: 0.65rem 1rem;
+    }
+    .toolbar-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+    .toolbar button, .toolbar .file-btn {
+      background: #3b322c;
+      color: #f7f0e6;
+      border-color: #53483f;
+    }
+    .toolbar .save-msg { margin-left: auto; font-size: 0.8rem; color: #c6e4cb; }
+    footer {
+      padding: 2rem 1.25rem 6rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    footer strong { color: var(--ink); font-family: var(--serif); }
+    details.uncertainties { margin-top: 1rem; }
+    @media (max-width: 640px) {
+      section { padding: 1rem; }
+      .toolbar-inner { justify-content: center; }
+      .toolbar .save-msg { width: 100%; text-align: center; margin: 0.2rem 0 0; }
+    }
+    @media print {
+      nav, .toolbar, .row-actions, .add-sticky, .privacy { display: none !important; }
+      section { break-inside: avoid; box-shadow: none; }
+      body { background: #fff; }
+    }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <div class="wrap">
+      <p class="eyebrow">Digital Drumm discovery</p>
+      <h1>Drumm Carpentry</h1>
+      <p class="lede">Notes from the session with Mary, so the team can see how work actually runs today — and add to it.</p>
+      <div class="status-row">
+        <span class="pill">November 2026</span>
+        <span class="pill ok" id="save-pill">Edits save in this browser</span>
+      </div>
+    </div>
+  </header>
+  <nav>
+    <div class="wrap">
+      <a href="#notes">Key notes</a>
+      <a href="#board">Whiteboard</a>
+      <a href="#people">Stakeholders</a>
+      <a href="#stack">Tech stack</a>
+      <a href="#processes">Processes</a>
+      <a href="#cases">Use cases</a>
+      <a href="#monthly">Monthly reports</a>
+    </div>
+  </nav>
+  <div class="privacy">
+    <p>This page is public. Customer names, addresses, phone numbers, emails, IBAN/BIC/sort codes, account numbers, VAT/CRO numbers and exact loan amounts have been left out. Quote figures below are generic examples only.</p>
+  </div>
+  <main>
+    <section id="notes">
+      <h2>Key notes</h2>
+      <p class="section-intro" data-edit="keyIntro"></p>
+      <div id="key-groups"></div>
+      <div class="row-actions">
+        <button type="button" id="add-group">Add note group</button>
+      </div>
+      <details class="uncertainties">
+        <summary>Reading uncertainties from the handwriting</summary>
+        <div id="uncertainties" data-edit="uncertainties"></div>
+      </details>
+    </section>
+
+    <section id="board">
+      <h2>Whiteboard</h2>
+      <p class="hint">Lami and staff can add sticky notes here. Notes stay in this browser until you export or download the page.</p>
+      <div class="add-sticky">
+        <textarea id="sticky-text" placeholder="Write a note…"></textarea>
+        <div class="fields">
+          <input type="text" id="sticky-author" list="author-list" placeholder="Name (e.g. Lami)" />
+          <datalist id="author-list">
+            <option value="Lami"></option>
+            <option value="Mary"></option>
+            <option value="Darren"></option>
+            <option value="Tony"></option>
+            <option value="Ines"></option>
+            <option value="Gavin"></option>
+            <option value="Shane"></option>
+          </datalist>
+          <select id="sticky-color" aria-label="Note colour">
+            <option value="#fde68a">Yellow</option>
+            <option value="#fbcfe8">Pink</option>
+            <option value="#bbf7d0">Green</option>
+            <option value="#bfdbfe">Blue</option>
+            <option value="#fed7aa">Orange</option>
+          </select>
+          <button type="button" class="primary" id="add-sticky">Add sticky</button>
+        </div>
+      </div>
+      <div class="board" id="sticky-board"></div>
+    </section>
+
+    <section id="people">
+      <h2>Stakeholder map</h2>
+      <p class="hint">Switch between a hierarchy and a department view. Names, roles and notes are editable.</p>
+      <div class="toggle" role="group" aria-label="Map view">
+        <button type="button" id="view-hierarchy">Hierarchy</button>
+        <button type="button" id="view-department">Department</button>
+      </div>
+      <div id="people-map"></div>
+    </section>
+
+    <section id="stack">
+      <h2>Tech stack</h2>
+      <p class="section-intro">Tools in use today, plus the custom ERP now in progress.</p>
+      <div class="tech-grid" id="tech-grid"></div>
+    </section>
+
+    <section id="processes">
+      <h2>Process maps</h2>
+      <p class="section-intro">How money and jobs move through the office. Click any step to edit it.</p>
+      <div class="processes" id="processes"></div>
+    </section>
+
+    <section id="cases">
+      <h2>Use cases</h2>
+      <p class="section-intro">Numbered opportunities from the discovery session. The creditors report is pinned at the top because it currently takes two days every month.</p>
+      <div class="case-grid" id="case-grid"></div>
+    </section>
+
+    <section id="monthly">
+      <h2>Monthly reports checklist</h2>
+      <p class="section-intro" data-edit="monthlyIntro"></p>
+      <ul class="checklist" id="monthly-list"></ul>
+      <div class="row-actions">
+        <button type="button" id="add-month-item">Add checklist item</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="toolbar">
+    <div class="toolbar-inner">
+      <button type="button" class="primary" id="export-json">Export JSON</button>
+      <label class="file-btn">Import JSON
+        <input type="file" id="import-json" accept="application/json,.json" hidden />
+      </label>
+      <button type="button" id="download-html">Download HTML</button>
+      <button type="button" class="danger" id="reset-state">Reset to original</button>
+      <span class="save-msg" id="save-msg">Saved in this browser only</span>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <p><strong>Digital Drumm</strong> · Drumm Carpentry discovery workspace · November 2026</p>
+      <p>Edits autosave in this browser only. They are not written back to GitHub. Use Export JSON or Download HTML to keep or share a copy, and Import JSON to load it on another phone or computer.</p>
+    </div>
+  </footer>
+
+<script>
+const STORAGE_KEY = "drumm-carpentry-discovery-v1";
+/*STATE:START*/
+const BUILTIN_STATE = {
+  "version": 1,
+  "keyIntro": "A small office team runs a high volume of deposits, staged payments and supplier invoices by hand, across Sage, a Schedule Sheet (the “company bible”), AIB, Gmail and WhatsApp. The custom ERP is in progress. A theme from the session: the business is living off deposits — so deposits need to be balanced.",
+  "uncertainties": "Tony is written throughout the notes; an earlier recollection used Tomy, so the map shows “Tony (Tomy?)”. The notes label showroom reception as INEZ in three places; an earlier recollection used Ines, so the map shows “Ines (Inez?)”. “Mam’s payroll” and “Mam’s sundry payments” are treated as Mary’s runs. “Payment Register will tell you Collur who salesman is” is read as “colour”. The printed bank-statement list has “AIB LOAD”, taken as “AIB LOAN”. One Drumm invoice note says “split payment x5”; the sample quotes use three staged payments (deposit, second payment the week before production, final on completion). Shane’s working sum on a combined kitchen and utility example was 26k / 17.5k / 1.5k = 45k; this page uses a generic example only.",
+  "groups": [
+    {
+      "title": "How payments work",
+      "items": [
+        "Jobs are quoted, then paid in stages on a single invoice split by hand: deposit, a second payment the week before production, and a final payment on completion.",
+        "A €1,000 booking deposit releases technical drawings. Installation is typically 12–14 weeks from the initial payment.",
+        "Example only (no customer details): a kitchen around €40k, staged roughly 23k / 16k / 1k. A utility quote in the notes sat around €5k alongside a kitchen/island quote.",
+        "Debtors tell you whose job a receipt belongs to. The payment register tells you, by colour, who the salesman is (Darren or Tony).",
+        "Check the quote matches the invoice before allocating a payment. Email the receipt or invoice and change the due date. Overdue chases and invoice reminders are used; some due dates run to 3 or 4 months."
+      ]
+    },
+    {
+      "title": "Schedule Sheet and deposits",
+      "items": [
+        "The Schedule Sheet is the company bible. It holds work weeks and is where second payments are marked.",
+        "Ines (Inez?) now adds deposits to the Schedule Sheet, highlights a job that is going ahead, and makes the invoice.",
+        "Add a booking deposit or a full deposit to Jobs to Order, and move the €1,000 booking-deposit list up.",
+        "Add or delete entries in the payment register. Mark off aged debtors, and mark second payments on the work weeks."
+      ]
+    },
+    {
+      "title": "Fixed payments (amounts and account numbers omitted)",
+      "items": [
+        "Rent is entered as an other payment, with no VAT, against the rent supplier account.",
+        "AIB loans (showroom and equipment) are recorded as fixed payments.",
+        "AIB Group is the Visa card payment.",
+        "Premium Credit is the business insurance repayment (supplier payment)."
+      ]
+    }
+  ],
+  "stickies": [],
+  "mapView": "hierarchy",
+  "people": [
+    {"id": "darren", "name": "Darren", "role": "Founder", "dept": "Leadership", "reportsTo": null, "external": false, "notes": "Sales alongside Tony. Texts go onto the schedule. Receives supplier invoices by Gmail with accounts."},
+    {"id": "mary", "name": "Mary", "role": "Bookkeeper", "dept": "Finance", "reportsTo": "darren", "external": false, "notes": "Day-in-the-life starts 7:30–9:30 with the bank statement. About two hours a day on deposits and reconciliation. Also payroll, sundry payments and monthly reports."},
+    {"id": "lami", "name": "Lami", "role": "Purchase orders", "dept": "Operations", "reportsTo": "darren", "external": false, "notes": "Purchase orders that require payments. Use the whiteboard to add anything this page is missing."},
+    {"id": "tony", "name": "Tony (Tomy?)", "role": "Sales", "dept": "Sales", "reportsTo": "darren", "external": false, "notes": "Commissions at month end. Sends the invoice or quote template into a WhatsApp group, then the payment schedule."},
+    {"id": "ines", "name": "Ines (Inez?)", "role": "Showroom reception", "dept": "Showroom", "reportsTo": "darren", "external": false, "notes": "Takes deposits in the showroom, adds them to the Schedule Sheet, highlights jobs going ahead, raises invoices, and checks the schedule for the second payment."},
+    {"id": "gavin", "name": "Gavin", "role": "External accountant", "dept": "Finance", "reportsTo": "darren", "external": true, "notes": "Revenue / tax double-check and the RCT report on the monthly pack."}
+  ],
+  "tech": [
+    {"name": "Sage", "role": "Accounts", "notes": "Sales invoices, supplier invoices, payment allocation, aged debtors and creditors, nominals, trial balance, P&L, balance sheet. Special orders get a customer-ref tag on the invoice and in Sage."},
+    {"name": "Gmail", "role": "Inbox", "notes": "Supplier invoices arrive by email to accounts and Darren. Receipts and invoices are emailed to clients once due dates are updated."},
+    {"name": "Google Sheets — Schedule Sheet", "role": "Company bible", "notes": "Work weeks, deposits, jobs going ahead, and second-payment marks. Ines and Mary both use it. Central to daily operations."},
+    {"name": "AIB", "role": "Bank", "notes": "Daily printed statement, deposit identification, daily reconciliation, lodgements and fixed loan / Visa payments."},
+    {"name": "WhatsApp", "role": "Sales coordination", "notes": "Tony sends the invoice or quote template and payment schedule to a group. Darren also texts; jobs then land on the schedule."},
+    {"name": "Custom ERP", "role": "In progress", "notes": "Being built for scheduling and client management. Monthly reporting still takes about a week to create and check."}
+  ],
+  "processes": [
+    {
+      "title": "Daily bank reconciliation",
+      "steps": [
+        "Print the AIB bank statement (Mary, about 7:30–9:30)",
+        "Identify each deposit and link it to the invoice and client",
+        "Tag Darren or Tony as the salesman",
+        "Do the daily reconciliation and tot up income",
+        "Log deposits on the spreadsheet / Schedule Sheet",
+        "Add lodgements toward month-end commission and Tony’s commission",
+        "Ines adds the deposit, highlights the job, and makes the invoice",
+        "Update Jobs to Order and the payment register",
+        "Check quote matches invoice, then allocate the payment",
+        "Mark aged debtors and second payments on work weeks",
+        "Email the receipt or invoice and change the due date"
+      ]
+    },
+    {
+      "title": "Invoice processing (suppliers)",
+      "steps": [
+        "Invoice arrives by email to accounts and Darren (Gmail)",
+        "Print the supplier invoice",
+        "Enter a new invoice in Sage: supplier, date, reference, order number, product details",
+        "Tag special orders with the customer reference on the invoice and in Sage"
+      ]
+    },
+    {
+      "title": "Quote → deposit → schedule → invoice",
+      "steps": [
+        "Quote issued (kitchen, utility, and so on)",
+        "€1,000 booking deposit releases technical drawings",
+        "Job added to the Schedule Sheet and Jobs to Order",
+        "Deposit invoice; staged payments on one invoice, split by hand",
+        "Second payment the week before production, marked on work weeks",
+        "Install typically 12–14 weeks from the initial payment",
+        "Final payment on completion",
+        "Commission and month-end lodgements tallied for Darren and Tony"
+      ]
+    }
+  ],
+  "cases": [
+    {"number": 9, "pinned": true, "title": "Creditors report", "value": "Two days every month — the top-priority use case", "notes": "Weekly supplier statements checked against Sage, then audited. Invoices have to be chased. Typically about four pages of Sage printouts, checked before they are marked correct, and matched to statements."},
+    {"number": 1, "pinned": false, "title": "Daily bank reconciliation (Mary’s morning)", "value": "About two hours every day, 7:30–9:30", "notes": "Print the AIB statement, identify deposits, link them to invoices and clients, and log Darren and Tony deposits. Ines takes showroom deposits and checks the Schedule Sheet for the second payment. The Schedule Sheet is the company bible."},
+    {"number": 2, "pinned": false, "title": "Payroll (“Mam’s payroll”)", "value": "Recurring payroll run", "notes": "Payroll with the payroll accountant. Written in the notes as “Mam’s payroll” — treated here as Mary’s payroll run."},
+    {"number": 3, "pinned": false, "title": "Tax double-check with Gavin", "value": "Revenue accuracy and compliance", "notes": "Gavin’s revenue page, used to double-check tax. The monthly pack also asks for an RCT report from Gavin."},
+    {"number": 4, "pinned": false, "title": "Tony’s commissions", "value": "Month-end sales pay, tied to lodgements", "notes": "Tot up income and add lodgements to month-end commission and Tony’s commission. On the monthly pack, credit notes are deducted from Tony’s commission."},
+    {"number": 5, "pinned": false, "title": "Quote, payment schedule and Sage invoice", "value": "Stops missed staged payments; today this is manual and duplicated", "notes": "Tony sends an invoice or quote template to a WhatsApp group, then a payment schedule, then “paid?”, then the invoice is raised in Sage. Darren texts and the job goes on the schedule. Manual invoice creation is duplicated. One note also describes a Drumm invoice as a deposit to site, split over five payments."},
+    {"number": 6, "pinned": false, "title": "Jobs to be ordered", "value": "Purchasing and delivery control", "notes": "A checklist with sales order number and delivery date. Add the booking deposit or full deposit here, and move the €1,000 booking-deposit list up."},
+    {"number": 7, "pinned": false, "title": "Sundry payments (“Mam’s sundry payments”)", "value": "Day-to-day non-job payments", "notes": "Rent as an other payment with no VAT; AIB loans; AIB Group (Visa); Premium Credit (business insurance). Amounts and account numbers are not recorded on this public page."},
+    {"number": 8, "pinned": false, "title": "Monthly reports", "value": "About one week to create and check; a finance breakdown also takes 2–3 days every week", "notes": "See the full checklist below (from the September 2026 list). Theme from the notes: living off deposits — balance all deposits. Custom ERP is in progress. Watch dates."}
+  ],
+  "monthlyIntro": "Checklist from the September 2026 monthly reports list. Tick items as you work. Watch dates.",
+  "monthly": [
+    "Sales day book",
+    "Invoices and credit notes printed",
+    "Quarterly turnover",
+    "Wages payroll summary",
+    "Bank daily reconciliations",
+    "Match sales orders → delivery dockets → invoices → quotes",
+    "Aged debtors",
+    "Credit notes deducted from Tony’s commission",
+    "Chase supplier credits",
+    "RCT report from Gavin",
+    "Profit and loss",
+    "Trial balance",
+    "Balance sheet",
+    "Cashflow and forecast",
+    "Supplier statements versus Sage",
+    "Missing invoices",
+    "Aged creditors versus supplier statements",
+    "Year adjust balance and budget spreadsheet",
+    "Unallocated receipts and payments",
+    "Compare to last month",
+    "Unreconciled transactions",
+    "Nominal activity"
+  ]
+};
+/*STATE:END*/
+
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+let state = loadState();
+
+function clone(v) { return JSON.parse(JSON.stringify(v)); }
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return normalize(clone(BUILTIN_STATE));
+    const parsed = JSON.parse(raw);
+    return normalize({ ...clone(BUILTIN_STATE), ...parsed, monthly: (parsed.monthly || BUILTIN_STATE.monthly).map(normalizeMonth) });
+  } catch {
+    return normalize(clone(BUILTIN_STATE));
+  }
+}
+
+function normalizeMonth(item) {
+  return typeof item === "string" ? { text: item, done: false } : { text: item.text || "", done: !!item.done };
+}
+
+function normalize(s) {
+  s.monthly = (s.monthly || []).map(normalizeMonth);
+  s.stickies = s.stickies || [];
+  s.groups = s.groups || [];
+  return s;
+}
+
+function save(reason) {
+  state.savedAt = new Date().toISOString();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  const when = new Date().toLocaleTimeString("en-IE", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Dublin" });
+  const msg = reason === "imported" ? "Imported and saved in this browser" : `Saved in this browser · ${when} Ireland time`;
+  $("#save-msg").textContent = msg;
+  $("#save-pill").textContent = "Saved in this browser";
+}
+
+let saveTimer;
+function scheduleSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => save(), 250);
+}
+
+function bindEditable(el, getter, setter) {
+  el.setAttribute("contenteditable", "true");
+  el.spellcheck = true;
+  if (el.innerText.trim() !== String(getter() ?? "").trim()) el.innerText = getter() ?? "";
+  el.oninput = () => { setter(el.innerText); scheduleSave(); };
+}
+
+function render() {
+  const intro = $('[data-edit="keyIntro"]');
+  bindEditable(intro, () => state.keyIntro, v => state.keyIntro = v);
+
+  const groupsEl = $("#key-groups");
+  groupsEl.innerHTML = "";
+  state.groups.forEach((g, gi) => {
+    const wrap = document.createElement("div");
+    const h = document.createElement("h3");
+    bindEditable(h, () => g.title, v => g.title = v);
+    const ul = document.createElement("ul");
+    ul.className = "notes";
+    g.items.forEach((item, ii) => {
+      const li = document.createElement("li");
+      bindEditable(li, () => g.items[ii], v => g.items[ii] = v);
+      ul.appendChild(li);
+    });
+    const actions = document.createElement("div");
+    actions.className = "row-actions";
+    const add = document.createElement("button");
+    add.type = "button";
+    add.textContent = "Add line";
+    add.onclick = () => { g.items.push("New note"); save(); render(); };
+    const del = document.createElement("button");
+    del.type = "button";
+    del.className = "danger";
+    del.textContent = "Remove group";
+    del.onclick = () => { state.groups.splice(gi, 1); save(); render(); };
+    actions.append(add, del);
+    wrap.append(h, ul, actions);
+    groupsEl.appendChild(wrap);
+  });
+
+  const unc = $('[data-edit="uncertainties"]');
+  bindEditable(unc, () => state.uncertainties, v => state.uncertainties = v);
+
+  const board = $("#sticky-board");
+  board.innerHTML = "";
+  if (!state.stickies.length) {
+    const empty = document.createElement("p");
+    empty.className = "hint";
+    empty.textContent = "No stickies yet. Add the first note above.";
+    empty.style.gridColumn = "1 / -1";
+    board.appendChild(empty);
+  }
+  state.stickies.forEach((s, i) => {
+    const card = document.createElement("article");
+    card.className = "sticky";
+    card.style.background = s.color || "#fde68a";
+    card.style.transform = `rotate(${((i % 5) - 2) * 1.2}deg)`;
+    const body = document.createElement("div");
+    body.className = "body";
+    bindEditable(body, () => s.text, v => s.text = v);
+    const meta = document.createElement("div");
+    meta.className = "meta";
+    bindEditable(meta, () => s.author || "Anonymous", v => s.author = v);
+    const rm = document.createElement("button");
+    rm.className = "remove";
+    rm.type = "button";
+    rm.setAttribute("aria-label", "Remove sticky");
+    rm.textContent = "×";
+    rm.onclick = () => { state.stickies.splice(i, 1); save(); render(); };
+    card.append(rm, body, meta);
+    board.appendChild(card);
+  });
+
+  $("#view-hierarchy").setAttribute("aria-pressed", String(state.mapView === "hierarchy"));
+  $("#view-department").setAttribute("aria-pressed", String(state.mapView === "department"));
+  renderPeople();
+  renderTech();
+  renderProcesses();
+  renderCases();
+  renderMonthly();
+}
+
+function personCard(p, founder) {
+  const art = document.createElement("article");
+  art.className = "person" + (founder ? " founder" : "") + (p.external ? " external" : "");
+  const role = document.createElement("div");
+  role.className = "role";
+  bindEditable(role, () => p.role, v => p.role = v);
+  const name = document.createElement("h3");
+  bindEditable(name, () => p.name, v => p.name = v);
+  const notes = document.createElement("div");
+  bindEditable(notes, () => p.notes, v => p.notes = v);
+  art.append(role, name, notes);
+  return art;
+}
+
+function renderPeople() {
+  const root = $("#people-map");
+  root.innerHTML = "";
+  const founder = state.people.find(p => !p.reportsTo) || state.people[0];
+  if (state.mapView === "hierarchy") {
+    const org = document.createElement("div");
+    org.className = "org";
+    if (founder) org.appendChild(personCard(founder, true));
+    const kids = document.createElement("div");
+    kids.className = "org-children";
+    state.people.filter(p => p !== founder).forEach(p => kids.appendChild(personCard(p, false)));
+    org.appendChild(kids);
+    root.appendChild(org);
+  } else {
+    const depts = [];
+    state.people.forEach(p => { if (!depts.includes(p.dept)) depts.push(p.dept); });
+    const grid = document.createElement("div");
+    grid.className = "depts";
+    depts.forEach(d => {
+      const col = document.createElement("div");
+      col.className = "dept";
+      const h = document.createElement("h3");
+      h.textContent = d;
+      col.appendChild(h);
+      state.people.filter(p => p.dept === d).forEach(p => col.appendChild(personCard(p, p === founder)));
+      grid.appendChild(col);
+    });
+    root.appendChild(grid);
+  }
+}
+
+function renderTech() {
+  const grid = $("#tech-grid");
+  grid.innerHTML = "";
+  state.tech.forEach(t => {
+    const art = document.createElement("article");
+    art.className = "tech";
+    const role = document.createElement("div");
+    role.className = "role";
+    bindEditable(role, () => t.role, v => t.role = v);
+    const name = document.createElement("h3");
+    bindEditable(name, () => t.name, v => t.name = v);
+    const notes = document.createElement("div");
+    bindEditable(notes, () => t.notes, v => t.notes = v);
+    art.append(role, name, notes);
+    grid.appendChild(art);
+  });
+}
+
+function renderProcesses() {
+  const root = $("#processes");
+  root.innerHTML = "";
+  state.processes.forEach((proc, pi) => {
+    const block = document.createElement("div");
+    const h = document.createElement("h3");
+    bindEditable(h, () => proc.title, v => proc.title = v);
+    const steps = document.createElement("div");
+    steps.className = "steps";
+    proc.steps.forEach((step, si) => {
+      const card = document.createElement("div");
+      card.className = "proc-step";
+      const n = document.createElement("div");
+      n.className = "n";
+      n.textContent = String(si + 1).padStart(2, "0");
+      const body = document.createElement("div");
+      bindEditable(body, () => proc.steps[si], v => proc.steps[si] = v);
+      const rm = document.createElement("button");
+      rm.type = "button";
+      rm.className = "icon danger";
+      rm.textContent = "×";
+      rm.setAttribute("aria-label", "Remove step");
+      rm.onclick = () => { proc.steps.splice(si, 1); save(); render(); };
+      card.append(n, body, rm);
+      steps.appendChild(card);
+    });
+    const actions = document.createElement("div");
+    actions.className = "row-actions";
+    const add = document.createElement("button");
+    add.type = "button";
+    add.textContent = "Add step";
+    add.onclick = () => { proc.steps.push("New step"); save(); render(); };
+    actions.appendChild(add);
+    block.append(h, steps, actions);
+    root.appendChild(block);
+  });
+}
+
+function renderCases() {
+  const grid = $("#case-grid");
+  grid.innerHTML = "";
+  const cases = [...state.cases].sort((a, b) => (b.pinned - a.pinned) || (a.number - b.number));
+  cases.forEach(c => {
+    const art = document.createElement("article");
+    art.className = "case" + (c.pinned ? " pinned" : "");
+    if (c.pinned) {
+      const badge = document.createElement("div");
+      badge.className = "badge";
+      badge.textContent = "Pinned · top priority";
+      art.appendChild(badge);
+    }
+    const num = document.createElement("div");
+    num.className = "role";
+    num.textContent = "Use case #" + c.number;
+    const title = document.createElement("h3");
+    bindEditable(title, () => c.title, v => c.title = v);
+    const value = document.createElement("div");
+    value.className = "value";
+    bindEditable(value, () => c.value, v => c.value = v);
+    const notes = document.createElement("div");
+    bindEditable(notes, () => c.notes, v => c.notes = v);
+    art.append(num, title, value, notes);
+    grid.appendChild(art);
+  });
+}
+
+function renderMonthly() {
+  const intro = $('[data-edit="monthlyIntro"]');
+  bindEditable(intro, () => state.monthlyIntro, v => state.monthlyIntro = v);
+  const list = $("#monthly-list");
+  list.innerHTML = "";
+  state.monthly.forEach((item, i) => {
+    const li = document.createElement("li");
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = !!item.done;
+    cb.onchange = () => { item.done = cb.checked; save(); };
+    const text = document.createElement("div");
+    bindEditable(text, () => item.text, v => item.text = v);
+    const rm = document.createElement("button");
+    rm.type = "button";
+    rm.className = "icon danger";
+    rm.textContent = "×";
+    rm.setAttribute("aria-label", "Remove item");
+    rm.onclick = () => { state.monthly.splice(i, 1); save(); render(); };
+    li.append(cb, text, rm);
+    list.appendChild(li);
+  });
+}
+
+$("#add-group").onclick = () => {
+  state.groups.push({ title: "New group", items: ["New note"] });
+  save(); render();
+};
+
+$("#add-sticky").onclick = () => {
+  const text = $("#sticky-text").value.trim();
+  if (!text) { $("#sticky-text").focus(); return; }
+  state.stickies.unshift({
+    text,
+    author: $("#sticky-author").value.trim() || "Anonymous",
+    color: $("#sticky-color").value,
+    createdAt: new Date().toISOString()
+  });
+  $("#sticky-text").value = "";
+  save(); render();
+};
+
+$("#view-hierarchy").onclick = () => { state.mapView = "hierarchy"; save(); render(); };
+$("#view-department").onclick = () => { state.mapView = "department"; save(); render(); };
+
+$("#add-month-item").onclick = () => {
+  state.monthly.push({ text: "New item", done: false });
+  save(); render();
+};
+
+$("#export-json").onclick = () => {
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "drumm-carpentry-discovery.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+};
+
+$("#import-json").onchange = (e) => {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const parsed = JSON.parse(reader.result);
+      state = normalize({ ...clone(BUILTIN_STATE), ...parsed });
+      save("imported");
+      render();
+    } catch {
+      alert("That file could not be read as JSON.");
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = "";
+};
+
+$("#download-html").onclick = () => {
+  const html = document.documentElement.outerHTML;
+  const start = "/*STATE:START*/";
+  const end = "/*STATE:END*/";
+  const i = html.indexOf(start);
+  const j = html.indexOf(end);
+  let out = "<!DOCTYPE html>\n" + html;
+  if (i !== -1 && j !== -1) {
+    const replacement = start + "\nconst BUILTIN_STATE = " + JSON.stringify(state) + ";\n" + end;
+    // documentElement.outerHTML may escape, so replace in the live source pattern via current file reconstruction
+  }
+  // Rebuild from current page source is messy if escaped. Use the original script text from this document.
+  const raw = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+  const si = raw.indexOf(start);
+  const ei = raw.indexOf(end);
+  if (si !== -1 && ei !== -1) {
+    out = raw.slice(0, si) + start + "\nconst BUILTIN_STATE = " + JSON.stringify(state) + ";\n" + end + raw.slice(ei + end.length);
+  } else {
+    out = raw;
+  }
+  const blob = new Blob([out], { type: "text/html;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "drumm-carpentry-discovery.html";
+  a.click();
+  URL.revokeObjectURL(a.href);
+};
+
+$("#reset-state").onclick = () => {
+  if (!confirm("Reset this browser’s copy back to the original discovery notes? Stickies and ticks will be cleared.")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  state = normalize(clone(BUILTIN_STATE));
+  save(); render();
+};
+
+render();
+if (localStorage.getItem(STORAGE_KEY)) save();
+</script>
+</body>
+</html>
